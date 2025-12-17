@@ -2562,5 +2562,119 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+
+<!-- â Injected UI Controls (Unlock, Mode, Safe Mode, etc.) -->
+<div class="card p-4 bg-slate-800 rounded shadow-md mb-6">
+  <button id="unlock-btn" class="px-4 py-2 bg-teal-600 text-white rounded">Unlock</button>
+  <p id="dg-hint" class="text-sm text-slate-400 mt-2 mb-4">Click "Unlock" to edit settings.</p>
+
+  <div class="mb-4">
+    <label for="mode-select" class="block text-sm mb-1">Mode:</label>
+    <select id="mode-select" class="w-full p-2 bg-slate-700 border border-slate-500 rounded" disabled>
+      <option value="conservative">Conservative</option>
+      <option value="balanced">Balanced</option>
+      <option value="aggressive">Aggressive</option>
+    </select>
+  </div>
+
+  <div class="mb-4">
+    <label class="inline-flex items-center mr-4">
+      <input type="checkbox" id="safe-mode-toggle" class="mr-2" disabled /> Safe Mode
+    </label>
+    <label class="inline-flex items-center">
+      <input type="checkbox" id="autoresume-toggle" class="mr-2" disabled /> Auto Resume
+    </label>
+  </div>
+
+  <div class="mb-4">
+    <label class="block mb-1">Max Loss:</label>
+    <input type="number" id="dg-maxLoss" class="w-full p-2 bg-slate-700 border border-slate-500 rounded" disabled />
+
+    <label class="block mt-2 mb-1">Max Profit:</label>
+    <input type="number" id="dg-maxProfit" class="w-full p-2 bg-slate-700 border border-slate-500 rounded" disabled />
+
+    <label class="block mt-2 mb-1">Max Trades:</label>
+    <input type="number" id="dg-maxTradesInput" class="w-full p-2 bg-slate-700 border border-slate-500 rounded" disabled />
+  </div>
+
+  <div class="flex space-x-4">
+    <button id="dg-save-btn" class="px-4 py-2 bg-green-600 text-white rounded" disabled>Save</button>
+    <button id="dg-reset-btn" class="px-4 py-2 bg-red-600 text-white rounded" disabled>Reset</button>
+  </div>
+</div>
+
+
+<!-- â Injected DOM logic for UI controls -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const unlockBtn = document.getElementById("unlock-btn");
+  const modeSelect = document.getElementById("mode-select");
+  const safeToggle = document.getElementById("safe-mode-toggle");
+  const autoResumeToggle = document.getElementById("autoresume-toggle");
+  const maxLoss = document.getElementById("dg-maxLoss");
+  const maxProfit = document.getElementById("dg-maxProfit");
+  const maxTrades = document.getElementById("dg-maxTradesInput");
+  const saveBtn = document.getElementById("dg-save-btn");
+  const resetBtn = document.getElementById("dg-reset-btn");
+  const hint = document.getElementById("dg-hint");
+
+  let unlocked = false;
+
+  if (unlockBtn) {
+    unlockBtn.addEventListener("click", function () {
+      unlocked = !unlocked;
+      modeSelect.disabled = !unlocked;
+      safeToggle.disabled = !unlocked;
+      autoResumeToggle.disabled = !unlocked;
+      maxLoss.disabled = !unlocked;
+      maxProfit.disabled = !unlocked;
+      maxTrades.disabled = !unlocked;
+      saveBtn.disabled = !unlocked;
+      resetBtn.disabled = !unlocked;
+
+      unlockBtn.textContent = unlocked ? "Lock" : "Unlock";
+      if (hint) {
+        hint.textContent = unlocked ? "Settings are now editable." : "Click \"Unlock\" to edit settings.";
+      }
+
+      if (typeof setSettingsLock === "function") {
+        setSettingsLock(!unlocked);
+      }
+
+      if (typeof updateUI === "function") updateUI();
+    });
+  }
+
+  if (modeSelect) {
+    modeSelect.addEventListener("change", function () {
+      if (window.appState) {
+        appState.mode = modeSelect.value;
+        if (typeof loadDefaults === "function") loadDefaults(appState.mode);
+      }
+    });
+  }
+
+  if (safeToggle) {
+    safeToggle.addEventListener("change", function () {
+      if (window.appState) {
+        appState.isSafeMode = safeToggle.checked;
+        if (typeof updateUI === "function") updateUI();
+        if (typeof updateStateFromUI === "function") updateStateFromUI();
+      }
+    });
+  }
+
+  if (autoResumeToggle) {
+    autoResumeToggle.addEventListener("change", function () {
+      if (window.appState) {
+        appState.autoResume = autoResumeToggle.checked;
+        if (typeof updateUI === "function") updateUI();
+        if (typeof updateStateFromUI === "function") updateStateFromUI();
+      }
+    });
+  }
+});
+</script>
+
 </body>
 </html>
