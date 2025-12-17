@@ -2459,49 +2459,104 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 
+<!-- UI Controls for Bot Settings -->
+<div class="card">
+  <button id="unlock-btn" class="mb-2 px-4 py-2 bg-teal-600 text-white rounded">Unlock</button>
+  <p id="dg-hint" class="text-sm text-gray-400 mb-4">Click "Unlock" to edit settings.</p>
+
+  <div class="mb-2">
+    <label for="mode-select" class="block text-sm">Mode:</label>
+    <select id="mode-select" class="w-full bg-gray-800 border border-gray-600 p-2 rounded" disabled>
+      <option value="conservative">Conservative</option>
+      <option value="balanced">Balanced</option>
+      <option value="aggressive">Aggressive</option>
+    </select>
+  </div>
+
+  <div class="mb-2">
+    <label><input type="checkbox" id="safe-mode-toggle" disabled> Safe Mode</label>
+    <label class="ml-4"><input type="checkbox" id="autoresume-toggle" disabled> Auto Resume</label>
+  </div>
+
+  <div class="mb-2">
+    <label>Max Loss: <input type="number" id="dg-maxLoss" class="bg-gray-800 border p-1 rounded" disabled></label><br>
+    <label>Max Profit: <input type="number" id="dg-maxProfit" class="bg-gray-800 border p-1 rounded" disabled></label><br>
+    <label>Max Trades: <input type="number" id="dg-maxTradesInput" class="bg-gray-800 border p-1 rounded" disabled></label>
+  </div>
+
+  <div class="mt-2">
+    <button id="dg-save-btn" class="px-3 py-1 bg-green-600 text-white rounded mr-2" disabled>Save</button>
+    <button id="dg-reset-btn" class="px-3 py-1 bg-red-600 text-white rounded" disabled>Reset</button>
+  </div>
+</div>
+
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  const dom = {
-    unlockBtn: document.getElementById('unlock-btn'),
-    modeSelect: document.getElementById('mode-select'),
-    safeToggle: document.getElementById('safe-mode-toggle'),
-    autoResumeToggle: document.getElementById('autoresume-toggle'),
-    maxLoss: document.getElementById('dg-maxLoss'),
-    maxProfit: document.getElementById('dg-maxProfit'),
-    maxTrades: document.getElementById('dg-maxTradesInput'),
-    saveBtn: document.getElementById('dg-save-btn'),
-    resetBtn: document.getElementById('dg-reset-btn'),
-    hint: document.getElementById('dg-hint')
-  };
+  const unlockBtn = document.getElementById("unlock-btn");
+  const modeSelect = document.getElementById("mode-select");
+  const safeToggle = document.getElementById("safe-mode-toggle");
+  const autoResumeToggle = document.getElementById("autoresume-toggle");
+  const maxLoss = document.getElementById("dg-maxLoss");
+  const maxProfit = document.getElementById("dg-maxProfit");
+  const maxTrades = document.getElementById("dg-maxTradesInput");
+  const saveBtn = document.getElementById("dg-save-btn");
+  const resetBtn = document.getElementById("dg-reset-btn");
+  const hint = document.getElementById("dg-hint");
 
-  if (!dom.unlockBtn) return;
+  let unlocked = false;
 
-  dom.unlockBtn.addEventListener("click", function () {
-    const newLocked = !appState.isSettingsLocked;
-    setSettingsLock(!newLocked);
-    if (typeof updateUI === "function") updateUI();
-  });
+  if (unlockBtn) {
+    unlockBtn.addEventListener("click", function () {
+      unlocked = !unlocked;
+      modeSelect.disabled = !unlocked;
+      safeToggle.disabled = !unlocked;
+      autoResumeToggle.disabled = !unlocked;
+      maxLoss.disabled = !unlocked;
+      maxProfit.disabled = !unlocked;
+      maxTrades.disabled = !unlocked;
+      saveBtn.disabled = !unlocked;
+      resetBtn.disabled = !unlocked;
 
-  if (dom.modeSelect) {
-    dom.modeSelect.addEventListener("change", function () {
-      appState.mode = dom.modeSelect.value;
-      if (typeof loadDefaults === "function") loadDefaults(appState.mode);
+      unlockBtn.textContent = unlocked ? "Lock" : "Unlock";
+      if (hint) {
+        hint.textContent = unlocked ? "Settings are now editable." : "Click \"Unlock\" to edit settings.";
+      }
+
+      if (typeof setSettingsLock === "function") {
+        setSettingsLock(!unlocked);
+      }
+
+      if (typeof updateUI === "function") updateUI();
     });
   }
 
-  if (dom.safeToggle) {
-    dom.safeToggle.addEventListener("change", function () {
-      appState.isSafeMode = dom.safeToggle.checked;
-      if (typeof updateUI === "function") updateUI();
-      if (typeof updateStateFromUI === "function") updateStateFromUI();
+  if (modeSelect) {
+    modeSelect.addEventListener("change", function () {
+      if (window.appState) {
+        appState.mode = modeSelect.value;
+        if (typeof loadDefaults === "function") loadDefaults(appState.mode);
+      }
     });
   }
 
-  if (dom.autoResumeToggle) {
-    dom.autoResumeToggle.addEventListener("change", function () {
-      appState.autoResume = dom.autoResumeToggle.checked;
-      if (typeof updateUI === "function") updateUI();
-      if (typeof updateStateFromUI === "function") updateStateFromUI();
+  if (safeToggle) {
+    safeToggle.addEventListener("change", function () {
+      if (window.appState) {
+        appState.isSafeMode = safeToggle.checked;
+        if (typeof updateUI === "function") updateUI();
+        if (typeof updateStateFromUI === "function") updateStateFromUI();
+      }
+    });
+  }
+
+  if (autoResumeToggle) {
+    autoResumeToggle.addEventListener("change", function () {
+      if (window.appState) {
+        appState.autoResume = autoResumeToggle.checked;
+        if (typeof updateUI === "function") updateUI();
+        if (typeof updateStateFromUI === "function") updateStateFromUI();
+      }
     });
   }
 });
