@@ -2510,41 +2510,44 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  const unlockBtn = document.getElementById("unlock-settings-btn");
-  const maxLoss = document.getElementById("dg-maxLoss");
-  const maxProfit = document.getElementById("dg-maxProfit");
-  const maxTrades = document.getElementById("dg-maxTradesInput");
-  const saveBtn = document.getElementById("dg-save-btn");
-  const resetBtn = document.getElementById("dg-reset-btn");
-  const hint = document.getElementById("dg-hint");
+  try {
+    const unlockBtn = document.getElementById("unlock-settings-btn");
+    const maxLoss = document.getElementById("dg-maxLoss");
+    const maxProfit = document.getElementById("dg-maxProfit");
+    const maxTrades = document.getElementById("dg-maxTradesInput");
+    const saveBtn = document.getElementById("dg-save-btn");
+    const resetBtn = document.getElementById("dg-reset-btn");
+    const hint = document.getElementById("dg-hint");
 
-  let unlocked = false;
+    let unlocked = false;
 
-  if (unlockBtn) {
-    unlockBtn.addEventListener("click", function () {
-      unlocked = !unlocked;
+    if (unlockBtn) {
+      unlockBtn.addEventListener("click", function () {
+        unlocked = !unlocked;
 
-      [maxLoss, maxProfit, maxTrades, saveBtn, resetBtn]
-        .forEach(el => { if (el) el.disabled = !unlocked });
+        [maxLoss, maxProfit, maxTrades, saveBtn, resetBtn]
+          .forEach(el => { if (el) el.disabled = !unlocked });
 
-      unlockBtn.textContent = unlocked ? "Lock" : "Unlock";
+        unlockBtn.textContent = unlocked ? "Lock" : "Unlock";
 
-      if (hint) {
-        hint.textContent = unlocked
-          ? "Settings are now editable."
-          : "Click \"Unlock\" to edit settings.";
-      }
+        if (hint) {
+          hint.textContent = unlocked
+            ? "Settings are now editable."
+            : "Click \"Unlock\" to edit settings.";
+        }
 
-      if (typeof setSettingsLock === "function") {
-        setSettingsLock(!unlocked);
-      }
+        if (typeof setSettingsLock === "function") {
+          setSettingsLock(!unlocked);
+        }
 
-      if (typeof updateUI === "function") updateUI();
-    });
+        if (typeof updateUI === "function") updateUI();
+      });
+    }
+  } catch (e) {
+    console.error("Unlock toggle error:", e);
   }
 });
 </script>
 
 </body>
 </html>
-
