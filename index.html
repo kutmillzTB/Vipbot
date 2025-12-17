@@ -2512,6 +2512,7 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function () {
   try {
     const unlockBtn = document.getElementById("unlock-settings-btn");
+    const modeSelect = document.getElementById("mode-select");
     const maxLoss = document.getElementById("dg-maxLoss");
     const maxProfit = document.getElementById("dg-maxProfit");
     const maxTrades = document.getElementById("dg-maxTradesInput");
@@ -2525,8 +2526,9 @@ document.addEventListener("DOMContentLoaded", function () {
       unlockBtn.addEventListener("click", function () {
         unlocked = !unlocked;
 
-        [maxLoss, maxProfit, maxTrades, saveBtn, resetBtn]
-          .forEach(el => { if (el) el.disabled = !unlocked });
+        [modeSelect, maxLoss, maxProfit, maxTrades, saveBtn, resetBtn].forEach(el => {
+          if (el) el.disabled = !unlocked;
+        });
 
         unlockBtn.textContent = unlocked ? "Lock" : "Unlock";
 
@@ -2543,8 +2545,19 @@ document.addEventListener("DOMContentLoaded", function () {
         if (typeof updateUI === "function") updateUI();
       });
     }
-  } catch (e) {
-    console.error("Unlock toggle error:", e);
+
+    if (modeSelect) {
+      modeSelect.addEventListener("change", function () {
+        if (window.appState) {
+          appState.mode = modeSelect.value;
+          if (typeof loadDefaults === "function") {
+            loadDefaults(appState.mode);
+          }
+        }
+      });
+    }
+  } catch (err) {
+    console.error("UI logic error:", err);
   }
 });
 </script>
