@@ -1026,8 +1026,8 @@ const dom = {
   blockReasonDisplay: $("block-reason-display"),
 
   // AI Guard
-  aiGuardToggle: $(\"ai-guard-toggle\"),
-  aiGuardStatus: $(\"ai-guard-status\"),
+  aiGuardToggle: $("ai-guard-toggle"),
+  aiGuardStatus: $("ai-guard-status"),
   accountWarning: $("account-warning"),
 
   // balance
@@ -1998,6 +1998,9 @@ function handleResponse(res){
       if (decision.cooldownMs) {
         aiLayer.cooldownExtraUntil = Math.max(aiLayer.cooldownExtraUntil, Date.now() + decision.cooldownMs);
       }
+
+      // FINAL BUY (unchanged core flow)
+      appState.ws.send(JSON.stringify({ buy: appState.pendingProposalId, price: appState.stakeAmount }));
 
       break;
     }
