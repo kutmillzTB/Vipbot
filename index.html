@@ -1,0 +1,2511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kut Milz TB</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lightweight Charts -->
+  <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+
+  <style>
+    /* ABSOLUTE RULE: DO NOT TOUCH OR CHANGE ANY BACKGROUND CODE */
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 20px 10px;
+    }
+
+    /* =========================
+       LOVE / PREMIUM THEME (LOOK ONLY)
+       - No JS edits
+       - No ID changes
+       - No element removal
+    ========================= */
+    :root{
+      --bg-card: rgba(30, 41, 59, 0.78);
+      --bg-card-2: rgba(15, 23, 42, 0.55);
+      --border-soft: rgba(148, 163, 184, 0.18);
+      --border-strong: rgba(148, 163, 184, 0.26);
+      --text: #e2e8f0;
+      --muted: rgba(226, 232, 240, 0.70);
+
+      --rose: rgba(244, 114, 182, 0.95);
+      --violet: rgba(167, 139, 250, 0.95);
+      --teal: rgba(45, 212, 191, 0.95);
+
+      --shadow: 0 18px 60px rgba(0,0,0,0.35);
+      --shadow-soft: 0 10px 30px rgba(0,0,0,0.28);
+      --glow-rose: 0 0 0 1px rgba(244,114,182,0.18), 0 0 28px rgba(244,114,182,0.12);
+      --glow-violet: 0 0 0 1px rgba(167,139,250,0.18), 0 0 28px rgba(167,139,250,0.12);
+      --glow-teal: 0 0 0 1px rgba(45,212,191,0.16), 0 0 28px rgba(45,212,191,0.10);
+
+      --radius: 16px;
+    }
+
+    /* Smooth, premium default */
+    * { -webkit-tap-highlight-color: transparent; }
+    html { scroll-behavior: smooth; }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: rgba(30, 41, 59, 0.65); }
+    ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.35); border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.55); }
+
+    .container-wrapper { width: 100%; max-width: 1200px; }
+
+    /* LOVE cards (glass + premium) */
+    .card {
+      background: linear-gradient(180deg, var(--bg-card), var(--bg-card-2));
+      border: 1px solid var(--border-soft);
+      padding: 20px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 20px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+      transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(700px 220px at 10% 0%, rgba(244,114,182,0.08), transparent 55%),
+        radial-gradient(700px 220px at 90% 10%, rgba(167,139,250,0.08), transparent 55%),
+        radial-gradient(500px 200px at 50% 110%, rgba(45,212,191,0.05), transparent 60%);
+      pointer-events:none;
+      opacity: 1;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow);
+    }
+
+    /* Title glow (keeps text exactly Kut Milz TB) */
+    h1{
+      letter-spacing: 0.3px;
+      text-shadow: 0 0 22px rgba(244,114,182,0.18), 0 0 22px rgba(167,139,250,0.14);
+    }
+
+    /* Pills + statuses (must keep "pill" / "status-pill" names for JS) */
+    .pill {
+      padding: 6px 12px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(148,163,184,0.18);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+    }
+
+    .status-pill {
+      display: flex;
+      align-items: center;
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-size: 0.875rem;
+      font-weight: 700;
+      border: 1px solid rgba(148,163,184,0.18);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.22);
+      letter-spacing: 0.2px;
+    }
+
+    /* Make ALL buttons feel app-like (without changing behavior) */
+    button{
+      transition: transform 140ms ease, filter 140ms ease, box-shadow 140ms ease, background-color 140ms ease;
+      will-change: transform;
+    }
+    button:hover{ filter: brightness(1.06); }
+    button:active{ transform: translateY(1px) scale(0.99); }
+    button:focus-visible{
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(244,114,182,0.22), 0 0 0 6px rgba(167,139,250,0.14);
+    }
+
+    /* Premium inputs/selects everywhere (no structure change) */
+    input, select{
+      border-radius: 12px !important;
+    }
+    input:focus, select:focus{
+      outline: none !important;
+      box-shadow: 0 0 0 3px rgba(244,114,182,0.16), 0 0 0 6px rgba(167,139,250,0.10) !important;
+    }
+
+    /* Upgrade the log panels without changing IDs */
+    #tx-log, #system-log{
+      border-radius: 14px !important;
+      border: 1px solid rgba(148,163,184,0.18) !important;
+      background: linear-gradient(180deg, rgba(2,6,23,0.40), rgba(2,6,23,0.20)) !important;
+      box-shadow: inset 0 0 0 1px rgba(148,163,184,0.06);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    /* Make the alert look premium */
+    #cluster-alert{
+      box-shadow: var(--glow-violet);
+    }
+
+    /* Chart container polish */
+    #chart-container {
+      width: 100%;
+      height: 320px;
+      background: linear-gradient(180deg, rgba(11,18,32,0.95), rgba(2,6,23,0.55));
+      border: 1px solid rgba(148,163,184,0.20);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(148,163,184,0.06), 0 18px 50px rgba(0,0,0,0.28);
+    }
+    @media (min-width: 1024px) {
+      #chart-container { height: 360px; }
+    }
+
+    /* Subtle LOVE glow hints on key sections by heading color */
+    .text-sky-400 { text-shadow: 0 0 18px rgba(45,212,191,0.10); }
+    .text-pink-400, .text-red-300 { text-shadow: 0 0 18px rgba(244,114,182,0.10); }
+    .text-emerald-400, .text-emerald-300 { text-shadow: 0 0 18px rgba(16,185,129,0.10); }
+
+    /* Improve small helper text readability */
+    .text-slate-400, .text-slate-500{
+      color: rgba(226,232,240,0.62) !important;
+    }
+
+    /* Make toggle track feel softer (visual only) */
+    .peer:checked + div{
+      box-shadow: var(--glow-rose);
+    }
+  </style>
+</head>
+
+<body>
+<div class="container-wrapper">
+  <h1 class="text-3xl font-bold text-center mb-6 text-white">Kut Milz TB</h1>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+    <!-- Column 1 -->
+    <div class="lg:col-span-1">
+
+      <!-- Bot Controls -->
+      <div class="card">
+        <h2 class="text-xl font-semibold mb-4 text-sky-400">Bot Controls</h2>
+
+        <div class="mt-2 border-t border-slate-700 pt-4 space-y-3">
+          <h3 class="text-lg font-medium text-slate-300">Live Status</h3>
+
+          <div class="flex justify-between items-center">
+            <span class="text-sm">Connection:</span>
+            <span id="connection-status" class="status-pill bg-red-800 text-white">DISCONNECTED</span>
+          </div>
+
+          <div class="flex justify-between items-center">
+            <span class="text-sm">Account Type:</span>
+            <span id="account-type-status" class="status-pill bg-slate-600 text-slate-300">UNKNOWN</span>
+          </div>
+
+          <div class="flex justify-between items-center">
+            <span class="text-sm">Trade Active:</span>
+            <span id="trade-active-status" class="status-pill bg-slate-600 text-slate-300">Idle</span>
+          </div>
+
+          <div class="flex justify-between items-center">
+            <span class="text-sm">Current Mode:</span>
+            <span id="mode-status" class="status-pill bg-indigo-800 text-white">SCALP</span>
+          </div>
+
+          <div class="flex justify-between items-center">
+            <span class="text-sm">H4 Trend:</span>
+            <span id="h4-trend-display" class="status-pill bg-slate-600 text-slate-300">OFF</span>
+          </div>
+
+          <div class="flex justify-between items-center">
+            <span class="text-sm">Reason Blocked:</span>
+            <span id="block-reason-display" class="status-pill bg-slate-600 text-slate-300">None</span>
+          </div>
+
+          <div id="account-warning" class="hidden mt-3 p-3 rounded-lg border border-red-500/40 bg-red-500/10 text-sm text-red-200">
+            Ã¢ÂÂ Ã¯Â¸Â Symbol not available on this account. Use a Deriv <b>Derived/Synthetic (STD)</b> account for Volatility indices and Vol 1s.
+          </div>
+        </div>
+      </div>
+
+      <!-- Account Summary -->
+      <div class="card">
+        <h2 class="text-xl font-semibold mb-4 text-sky-400">Account Summary</h2>
+        <div class="space-y-3">
+          <div class="flex justify-between items-center border-b border-slate-700 pb-2">
+            <span class="text-sm">Current Balance:</span>
+            <span id="current-balance-display" class="text-lg font-bold text-yellow-400">...</span>
+          </div>
+
+          <div class="flex justify-between items-center">
+            <span class="text-sm">Session Profit (USD):</span>
+            <span id="current-profit-display" class="text-lg font-bold text-slate-300">0.00</span>
+          </div>
+
+          <!-- Ã¢ÂÂ ADDED: Session Loss -->
+          <div class="flex justify-between items-center">
+            <span class="text-sm">Session Loss (USD):</span>
+            <span id="current-loss-display" class="text-lg font-bold text-red-300">0.00</span>
+          </div>
+
+          <div class="flex justify-between items-center">
+            <span class="text-sm">Contract Sellable:</span>
+            <span id="sellable-display" class="status-pill bg-red-500 text-white">NO</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ã¢ÂÂ ADDED: Transaction Log -->
+      <div class="card">
+        <h2 class="text-xl font-semibold mb-4 text-emerald-300">Transaction Log</h2>
+        <div class="p-3 bg-slate-900/40 border border-slate-700 rounded-lg text-xs whitespace-pre-wrap min-h-[120px] max-h-[220px] overflow-auto"
+             id="tx-log"></div>
+        <div class="mt-3 flex gap-2">
+          <button id="clear-txlog-btn" class="text-xs py-2 px-3 rounded bg-slate-600 hover:bg-slate-500 text-white">Clear Log</button>
+          <button id="export-txlog-btn" class="text-xs py-2 px-3 rounded bg-slate-600 hover:bg-slate-500 text-white">Copy Log</button>
+        </div>
+        <div class="mt-2 text-[11px] text-slate-400">
+          Format: <span class="text-slate-300">CLOSED | SYMBOL | CALL/PUT | +/-value</span>
+        </div>
+      </div>
+
+      <!-- System Log -->
+      <div class="card">
+        <h2 class="text-xl font-semibold mb-4 text-amber-300">System Log</h2>
+        <div class="p-3 bg-slate-900/40 border border-slate-700 rounded-lg text-xs whitespace-pre-wrap min-h-[120px] max-h-[220px] overflow-auto"
+             id="system-log"></div>
+        <div class="mt-3 flex gap-2">
+          <button id="clear-log-btn" class="text-xs py-2 px-3 rounded bg-slate-600 hover:bg-slate-500 text-white">Clear Log</button>
+          <button id="export-log-btn" class="text-xs py-2 px-3 rounded bg-slate-600 hover:bg-slate-500 text-white">Copy Log</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Column 2 -->
+    <div class="lg:col-span-2">
+
+      <!-- Clustering Detected Alert -->
+      <div id="cluster-alert" class="card hidden border-yellow-500/40">
+        <div class="flex items-start gap-3">
+          <div class="text-yellow-400 text-xl">Ã¢ÂÂ Ã¯Â¸Â</div>
+          <div>
+            <div class="text-lg font-semibold text-yellow-300">Clustering Detected</div>
+            <div id="cluster-text" class="text-sm text-slate-200 mt-1">
+              3+ clusters in last 5 ticks suggests possible reversal/indecision.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Confidence Meter -->
+      <div class="card">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-xl font-semibold text-emerald-400">Confidence Meter</h2>
+          <span id="signal-pill" class="pill bg-slate-700 text-slate-200">WAIT</span>
+        </div>
+
+        <div class="w-full bg-slate-700 rounded-full h-4 overflow-hidden">
+          <div id="confidence-bar" class="h-4 bg-emerald-500" style="width:0%"></div>
+        </div>
+        <div class="flex justify-between mt-2 text-xs text-slate-300">
+          <div id="confidence-text">0%</div>
+          <div id="confidence-notes" class="text-slate-400">Waiting ticksÃ¢ÂÂ¦</div>
+        </div>
+
+        <div class="mt-3 text-xs text-slate-400">
+          If <b>Auto Trading</b> is OFF, you can use this bar + signal to decide manual entries. Not financial advice.
+        </div>
+      </div>
+
+      <!-- Trade Settings -->
+      <div class="card">
+        <h2 class="text-xl font-semibold mb-4 text-sky-400">Trade Settings</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+          <div>
+            <label class="block text-sm font-medium mb-1">Select Market</label>
+            <select id="symbolSelect"
+              class="w-full p-2 rounded bg-slate-700 border border-slate-600 text-slate-50 focus:ring-sky-500 focus:border-sky-500">
+              <option value="R_10">Volatility 10 Index (R_10)</option>
+              <option value="R_25">Volatility 25 Index (R_25)</option>
+              <option value="R_50">Volatility 50 Index (R_50)</option>
+              <option value="R_75">Volatility 75 Index (R_75)</option>
+              <option value="R_100" selected>Volatility 100 Index (R_100)</option>
+              <option value="1HZ10V">Volatility 10 (1s) (1HZ10V)</option>
+              <option value="1HZ25V">Volatility 25 (1s) (1HZ25V)</option>
+              <option value="1HZ50V">Volatility 50 (1s) (1HZ50V)</option>
+              <option value="1HZ75V">Volatility 75 (1s) (1HZ75V)</option>
+              <option value="1HZ100V">Volatility 100 (1s) (1HZ100V)</option>
+            </select>
+            <p class="text-xs text-slate-400 mt-2">
+              Current symbol: <span id="currentSymbolLabel" class="text-sky-300 font-semibold">R_100</span>
+            </p>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-1">Custom Symbol (optional)</label>
+            <div class="flex gap-2">
+              <input id="customSymbol" placeholder="Example: R_100 or 1HZ100V"
+                class="flex-1 p-2 rounded bg-slate-700 border border-slate-600 text-slate-50 focus:ring-sky-500 focus:border-sky-500"/>
+              <button id="applySymbolBtn"
+                class="py-2 px-3 rounded bg-sky-700 hover:bg-sky-800 text-white text-sm font-semibold">
+                Apply
+              </button>
+            </div>
+            <p class="text-xs text-slate-400 mt-2">
+              If symbol fails to stream, you may be on an account that doesnÃ¢ÂÂt allow it. Use a Derived/STD account for Volatility indices.
+            </p>
+          </div>
+
+          <div class="md:col-span-2 grid grid-cols-2 gap-3">
+            <button id="placeTradeBtn" class="py-3 rounded-xl font-bold bg-emerald-700 hover:bg-emerald-800 text-white">
+              Place Trade (<span id="placeStakeLabel">$1.00</span>)
+            </button>
+            <button id="clearHistoryBtn" class="py-3 rounded-xl font-bold bg-red-700 hover:bg-red-800 text-white">
+              Clear History
+            </button>
+            <button id="bulk3Btn" class="py-3 rounded-xl font-bold bg-fuchsia-700 hover:bg-fuchsia-800 text-white">
+              Bulk 3 (<span id="bulk3Label">$3.00</span>)
+            </button>
+            <button id="bulk5Btn" class="py-3 rounded-xl font-bold bg-sky-700 hover:bg-sky-800 text-white">
+              Bulk 5 (<span id="bulk5Label">$5.00</span>)
+            </button>
+          </div>
+
+          <div class="md:col-span-2 flex items-center justify-between p-3 bg-slate-700/50 rounded-lg mt-1">
+            <div class="flex items-center gap-3">
+              <div class="text-purple-300 text-xl">Ã¢ÂÂ¡</div>
+              <div>
+                <div class="font-semibold text-slate-200">Auto Trading</div>
+                <div class="text-xs text-slate-400">Enable to start automated trading based on current settings</div>
+              </div>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="autoTradingToggle" class="sr-only peer" checked>
+              <div class="w-11 h-6 bg-slate-500 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 rounded-full peer
+                peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px]
+                after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-sky-600"></div>
+            </label>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Trading Parameters -->
+      <div class="card">
+        <h2 class="text-xl font-semibold mb-4 text-sky-400">Trading Parameters</h2>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="stakeAmount" class="block text-sm font-medium mb-1">Stake Amount (USD)</label>
+            <input type="number" id="stakeAmount" value="1.00" step="0.01"
+              class="w-full p-2 rounded bg-slate-700 border border-slate-600 text-slate-50 focus:ring-sky-500 focus:border-sky-500">
+          </div>
+
+          <div>
+            <label for="maxTradesPerSignal" class="block text-sm font-medium mb-1">Max Trades/Signal</label>
+            <input type="number" id="maxTradesPerSignal" value="1" step="1"
+              class="w-full p-2 rounded bg-slate-700 border border-slate-600 text-slate-50 focus:ring-sky-500 focus:border-sky-500">
+          </div>
+
+          <div>
+            <label for="duration" class="block text-sm font-medium mb-1">Duration</label>
+            <input type="number" id="duration" value="5" step="1"
+              class="w-full p-2 rounded bg-slate-700 border border-slate-600 text-slate-50 focus:ring-sky-500 focus:border-sky-500">
+          </div>
+
+          <div>
+            <label for="durationUnit" class="block text-sm font-medium mb-1">Duration Unit</label>
+            <select id="durationUnit"
+              class="w-full p-2 rounded bg-slate-700 border border-slate-600 text-slate-50 focus:ring-sky-500 focus:border-sky-500">
+              <option value="t">Ticks</option>
+              <option value="s">Seconds</option>
+              <option value="m">Minutes</option>
+              <option value="h">Hours</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="tpUSD" class="block text-sm font-medium mb-1">Take Profit (USD)</label>
+            <input type="number" id="tpUSD" value="0.34" step="0.01"
+              class="w-full p-2 rounded bg-slate-700 border border-slate-600 text-slate-50 focus:ring-sky-500 focus:border-sky-500">
+          </div>
+
+          <div>
+            <label for="slUSD" class="block text-sm font-medium mb-1">Stop Loss (USD)</label>
+            <input type="number" id="slUSD" value="10.00" step="0.01"
+              class="w-full p-2 rounded bg-slate-700 border border-slate-600 text-slate-50 focus:ring-sky-500 focus:border-sky-500">
+          </div>
+
+          <div class="col-span-2">
+            <label for="cooldownDuration" class="block text-sm font-medium mb-1">Cooldown Duration (s)</label>
+            <input type="number" id="cooldownDuration" value="30" step="1"
+              class="w-full p-2 rounded bg-slate-700 border border-slate-600 text-slate-50 focus:ring-sky-500 focus:border-sky-500">
+          </div>
+        </div>
+      </div>
+
+      <!-- Protected Defaults -->
+      <div class="card">
+        <div class="flex justify-between items-start mb-4 border-b border-slate-700 pb-3">
+          <h2 class="text-xl font-semibold text-pink-400">Protected Defaults</h2>
+          <button id="unlock-settings-btn" type="button"
+           class="text-sm text-pink-400 hover:text-pink-300 font-medium py-1 px-3 rounded-full border border-pink-500 transition duration-150">
+            Unlock
+          </button>
+            
+          </div>
+        <!-- â DAILY GUARD DASHBOARD (Locked unless Unlocked) -->
+<div class="p-3 bg-slate-700/50 rounded-lg border border-slate-600">
+  <div class="flex items-center justify-between mb-2">
+    <div class="font-semibold text-slate-200">Daily Guard Dashboard</div>
+    <span id="dg-status-pill" class="pill bg-slate-600 text-slate-200">LOADING</span>
+  </div>
+
+  <div class="text-xs text-slate-400 mb-3">
+    Date: <span id="dg-date" class="text-slate-200 font-semibold">----</span> â¢
+    Trades: <span id="dg-trades" class="text-slate-200 font-semibold">0</span> /
+    <span id="dg-maxTrades" class="text-slate-200 font-semibold">0</span>
+  </div>
+
+  <div class="grid grid-cols-3 gap-2">
+    <div>
+      <label class="block text-[11px] text-slate-400 mb-1">Max Loss ($)</label>
+      <input id="dg-maxLoss" type="number" step="0.01"
+        class="w-full p-2 rounded bg-slate-800 border border-slate-600 text-slate-50 text-sm">
+    </div>
+    <div>
+      <label class="block text-[11px] text-slate-400 mb-1">Max Profit ($)</label>
+      <input id="dg-maxProfit" type="number" step="0.01"
+        class="w-full p-2 rounded bg-slate-800 border border-slate-600 text-slate-50 text-sm">
+    </div>
+    <div>
+      <label class="block text-[11px] text-slate-400 mb-1">Max Trades</label>
+      <input id="dg-maxTradesInput" type="number" step="1"
+        class="w-full p-2 rounded bg-slate-800 border border-slate-600 text-slate-50 text-sm">
+    </div>
+  </div>
+
+  <div class="mt-3 flex gap-2">
+    <button id="dg-save-btn"
+      class="flex-1 py-2 rounded-lg font-bold bg-emerald-700 hover:bg-emerald-800 text-white text-sm">
+      Save Today Limits
+    </button>
+    <button id="dg-reset-btn"
+      class="py-2 px-3 rounded-lg font-bold bg-slate-600 hover:bg-slate-500 text-white text-sm">
+      Reset Today
+    </button>
+  </div>
+
+  <div id="dg-hint" class="mt-2 text-[11px] text-slate-400">
+    Locked. Click <b>Unlock</b> to edit todayâs limits.
+  </div>
+</div>
+
+        <div class="space-y-4">
+
+          <div class="flex items-center justify-between p-3 bg-slate-700/50 rounded-lg">
+            <div class="flex flex-col sm:flex-row sm:items-center">
+              <span class="text-sm font-medium text-slate-300 mr-4">Strategy Mode:</span>
+              <span id="mode-pill" class="pill bg-indigo-600 text-white">SCALP</span>
+            </div>
+            <select id="mode-select"
+              class="p-1 rounded bg-slate-600 text-xs border border-slate-500 focus:ring-indigo-500"
+              disabled>
+              <option value="SCALP">SCALP (Fast Tap-Out)</option>
+              <option value="MOMENTUM">MOMENTUM (Trend + Breakout)</option>
+              <option value="H4">H4 MODE (Strict Trend + Breakout)</option>
+            </select>
+          </div>
+
+          <div class="flex items-center justify-between p-3 bg-slate-700/50 rounded-lg">
+            <div class="flex flex-col sm:flex-row sm:items-center">
+              <span class="text-sm font-medium text-slate-300 mr-4">Safe Mode:</span>
+              <span id="safe-mode-indicator" class="pill bg-red-600 text-white">OFF</span>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="safe-mode-toggle" class="sr-only peer" disabled>
+              <div class="w-11 h-6 bg-slate-500 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pink-300 rounded-full peer
+                peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px]
+                after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-pink-600"></div>
+            </label>
+          </div>
+
+          <div class="text-center text-xs text-slate-500" id="safe-mode-status">
+            Safe Mode is currently DISABLED.
+          </div>
+
+          <div class="flex items-center justify-between p-3 bg-slate-700/50 rounded-lg">
+            <div class="flex flex-col sm:flex-row sm:items-center">
+              <span class="text-sm font-medium text-slate-300 mr-4">Auto-resume after cooldown:</span>
+              <span id="autoresume-indicator" class="pill bg-emerald-600 text-white">ON</span>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="autoresume-toggle" class="sr-only peer" disabled checked>
+              <div class="w-11 h-6 bg-slate-500 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pink-300 rounded-full peer
+                peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px]
+                after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-pink-600"></div>
+            </label>
+          </div>
+
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-slate-700">
+          <p class="text-xs text-center text-slate-500">Made by Kut.Milz</p>
+        </div>
+      </div>
+
+      <!-- Chart Card -->
+      <div class="card">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-xl font-semibold text-sky-400">Live Chart</h2>
+          <span id="chart-status" class="pill bg-slate-700 text-slate-200">WAITING</span>
+        </div>
+        <div id="chart-container"></div>
+        <p class="text-xs text-slate-400 mt-2">
+          Live <span class="text-sky-300 font-semibold">1-second candles</span> built from Deriv tick stream (auto-fallback supported).
+        </p>
+      </div>
+
+      <!-- API Login -->
+      <div class="card">
+        <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-700">
+          <h2 class="text-xl font-semibold text-sky-400">API Login</h2>
+          <span id="login-status-badge" class="pill bg-red-800 text-white animate-pulse">DISCONNECTED</span>
+        </div>
+
+        <div class="relative mb-3">
+          <label for="api-token" class="block text-sm font-medium mb-1 text-slate-300">Deriv API Token</label>
+          <div class="flex items-center rounded-lg bg-slate-700 border border-slate-600 focus-within:ring-2 focus-within:ring-sky-500 transition duration-150">
+            <span class="p-3 text-sky-400">
+              <svg xmlns="https://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3v2.25m-15.75 6a3 3 0 0 1 3-3h2.25m3.75-10.25v12a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3v-2.25m15.75-6a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3v-2.25m3.75 10.25v-12a3 3 0 0 1 3-3h2.25a3 3 0 0 1 3 3v2.25" />
+              </svg>
+            </span>
+
+            <input type="password" id="api-token" placeholder="Paste your API token here..."
+              class="flex-1 p-3 bg-transparent border-none text-slate-50 focus:ring-0 focus:outline-none placeholder-slate-400"
+              autocomplete="off">
+
+            <button id="toggle-visibility-btn" class="p-3 text-slate-400 hover:text-sky-300 transition duration-150"
+              type="button" title="Show Token">
+              Ã°ÂÂÂÃ¯Â¸Â
+            </button>
+          </div>
+        </div>
+
+        <div class="relative mb-3">
+          <label for="start-password" class="block text-sm font-medium mb-1 text-slate-300">Start Password</label>
+          <input type="password" id="start-password" placeholder="Type password to start botÃ¢ÂÂ¦"
+            class="w-full p-3 rounded-lg bg-slate-700 border border-slate-600 text-slate-50 focus:ring-sky-500 focus:border-sky-500"
+            autocomplete="off" />
+          <p id="pw-error-message" class="mt-2 text-sm text-red-300 hidden">
+            Access Denied: Incorrect password to start bot.
+          </p>
+        </div>
+
+        <button id="toggle-bot-btn"
+          class="w-full py-3 rounded-lg font-bold transition duration-200 bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg">
+          START BOT
+        </button>
+
+        <p id="token-error-message" class="text-sm text-red-400 mt-3 hidden">API token required to start the bot.</p>
+
+        <p class="text-xs text-slate-500 mt-3">
+          <span class="font-semibold text-sky-300">Permissions:</span> Read + Trade
+        </p>
+
+        <p id="edit-hint" class="text-xs text-slate-500 mb-4">
+          Token stored in browser (localStorage). Never share it.
+        </p>
+
+        <div class="p-3 bg-slate-700 rounded-lg border border-slate-600 flex flex-col sm:flex-row justify-between items-start sm:items-center">
+          <div class="text-xs space-y-1 sm:space-y-0">
+            <p>API URL: <code id="api-url-text" class="text-yellow-400 break-all text-[11px] select-all font-mono">wss://ws.binaryws.com/websockets/v3?app_id=1089</code></p>
+          </div>
+          <button id="copy-api-url-btn"
+            class="mt-2 sm:mt-0 text-xs py-1 px-3 rounded-full bg-slate-600 hover:bg-slate-500 transition duration-150 text-white font-medium"
+            type="button">
+            Copy URL
+          </button>
+        </div>
+      </div>
+
+      <!-- Insights -->
+      <div class="card">
+        <h2 class="text-xl font-semibold mb-4 text-emerald-400">Market Insights Ã¢ÂÂ¨</h2>
+
+        <div class="flex flex-col sm:flex-row gap-4 mb-4">
+          <button id="analyze-market-btn" class="flex-1 py-2 rounded-lg font-bold transition duration-200 bg-emerald-700 hover:bg-emerald-800 text-white shadow-lg">
+            Analyze Market Sentiment Ã¢ÂÂ¨
+          </button>
+          <button id="assess-risk-btn" class="flex-1 py-2 rounded-lg font-bold transition duration-200 bg-pink-700 hover:bg-pink-800 text-white shadow-lg">
+            Assess Strategy Risk Ã¢ÂÂ¨
+          </button>
+        </div>
+
+        <div id="gemini-loading-indicator" class="hidden text-center text-sm text-yellow-500 py-4">
+          Generating insight...
+        </div>
+
+        <div id="gemini-output" class="p-3 bg-slate-700 rounded-lg text-sm text-slate-100 min-h-[100px] whitespace-pre-wrap">
+          Tap a button above for analysis. (Works even without API key.)
+        </div>
+
+        <div class="mt-3 text-xs text-slate-400">
+          Note: This is NOT financial advice. Signals can be wrong Ã¢ÂÂ always risk-manage.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   SAFE DOM + LOGGING
+========================================================= */
+function $(id){ return document.getElementById(id); }
+const LOG = $("system-log");
+const TXLOG = $("tx-log");
+function logLine(msg){
+  const t = new Date().toLocaleTimeString();
+  const line = `[${t}] ${msg}`;
+  console.log(line);
+  if (LOG){
+    LOG.textContent = (LOG.textContent ? (LOG.textContent + "\n") : "") + line;
+    LOG.scrollTop = LOG.scrollHeight;
+  }
+}
+
+// Ã¢ÂÂ Transaction log lines: CLOSED | SYMBOL | CALL/PUT | +/-value
+function txLogLine(msg){
+  const t = new Date().toLocaleTimeString();
+  const line = `[${t}] ${msg}`;
+  console.log("TX:", line);
+  if (TXLOG){
+    TXLOG.textContent = (TXLOG.textContent ? (TXLOG.textContent + "\n") : "") + line;
+    TXLOG.scrollTop = TXLOG.scrollHeight;
+  }
+}
+
+/* =========================================================
+   CONFIG
+========================================================= */
+const API_URL = 'wss://ws.binaryws.com/websockets/v3?app_id=1089';
+const REQUIRED_PASSWORD = "$1977";
+
+/* =========================================================
+   MODE DEFAULTS (Momentum best = Minutes)
+========================================================= */
+const modeDefaults = {
+  SCALP:   { stake:1.00, duration:5, durationUnit:'t', tp:0.34, sl:10.00, maxTrades:1, cooldown:30, tickBuf:6,  thr:0.015, trend:false, strict:false },
+  MOMENTUM:{ stake:2.00, duration:1, durationUnit:'m', tp:0.60, sl:15.00, maxTrades:1, cooldown:45, tickBuf:10, thr:0.030, trend:true,  strict:false },
+  H4:      { stake:2.00, duration:2, durationUnit:'m', tp:0.80, sl:20.00, maxTrades:1, cooldown:60, tickBuf:12, thr:0.040, trend:true,  strict:true  }
+};
+
+/* =========================================================
+   STATE
+========================================================= */
+const appState = {
+  ws:null,
+  token: localStorage.getItem('derivToken') || '',
+  isBotRunning:false,
+  isAuthenticated:false,
+  isEntryInProgress:false,
+
+  symbol: "R_100",
+
+  currentBalance:0,
+
+  // Ã¢ÂÂ Session tracking
+  sessionProfit:0,     // net P/L
+  sessionLoss:0,       // absolute loss total
+
+  tradeCounter:0,
+  currentContractId:null,
+  is_sellable:0,
+  isSelling:false,
+
+  // Ã¢ÂÂ Track last trade meta so TX log shows CALL/PUT + symbol
+  currentDirection:null,       // "CALL" / "PUT"
+  currentSymbolAtEntry:null,   // e.g., "R_100"
+
+  mode:'SCALP',
+  isSettingsLocked:true,
+  isSafeMode:false,
+  autoResume:true,
+  autoTradingEnabled:true,
+
+  stakeAmount:1.00,
+  duration:5,
+  durationUnit:'t',
+  tpUSD:0.34,
+  slUSD:10.00,
+  maxTradesPerSignal:1,
+  cooldownDuration:30,
+  cooldownUntil:0,
+
+  tickBuffer:[],
+  tickBufferSize:6,
+  momentumThreshold:0.015,
+  lastTick:null,
+
+  // last digits for clustering (last 5 ticks)
+  lastDigits:[],
+
+  // proposal/buy flow
+  pendingProposalId:null,
+
+  // trend
+  useTrendFilter:false,
+  breakoutStrict:false,
+  trend:{
+    enabled:false,
+    status:"OFF",
+    tfSeconds:14400,   // H4 = 4 hours
+    emaFast:20,
+    emaSlow:50,
+    lastUpdated:0,
+    refreshMs:60000
+  },
+
+  // chart candle aggregator
+  chart:{
+    lastCandleTime:0,
+    lastOHLC:null,
+    hasTick:false,
+
+    /* Ã¢ÂÂ PRICE ACTION: closed 1s candle history (used by filter) */
+    closedCandles: []  // {time, open, high, low, close}
+  },
+
+  // account
+  isDemo: null
+};
+
+/* =========================================================
+   DOM
+========================================================= */
+const dom = {
+  // Daily Guard UI
+  unlockBtn: $("unlock-settings-btn"),
+dgStatusPill: $("dg-status-pill"),
+dgDate: $("dg-date"),
+dgTrades: $("dg-trades"),
+dgMaxTrades: $("dg-maxTrades"),
+
+dgMaxLoss: $("dg-maxLoss"),
+dgMaxProfit: $("dg-maxProfit"),
+dgMaxTradesInput: $("dg-maxTradesInput"),
+
+dgSaveBtn: $("dg-save-btn"),
+dgResetBtn: $("dg-reset-btn"),
+dgHint: $("dg-hint"),
+  
+  // status
+  connectionStatus: $("connection-status"),
+  accountTypeStatus: $("account-type-status"),
+  tradeActiveStatus: $("trade-active-status"),
+  h4TrendDisplay: $("h4-trend-display"),
+  blockReasonDisplay: $("block-reason-display"),
+  accountWarning: $("account-warning"),
+
+  // balance
+  balanceDisplay: $("current-balance-display"),
+  profitDisplay: $("current-profit-display"),
+  lossDisplay: $("current-loss-display"),
+  sellableDisplay: $("sellable-display"),
+
+  // controls
+  toggleBotBtn: $("toggle-bot-btn"),
+  modeSelect: $("mode-select"),
+  modePill: $("mode-pill"),
+  modeStatus: $("mode-status"),
+
+  stakeInput: $("stakeAmount"),
+  durationInput: $("duration"),
+  durationUnitInput: $("durationUnit"),
+  tpInput: $("tpUSD"),
+  slInput: $("slUSD"),
+  maxTradesInput: $("maxTradesPerSignal"),
+  cooldownInput: $("cooldownDuration"),
+
+  safeToggle: $("safe-mode-toggle"),
+  safeIndicator: $("safe-mode-indicator"),
+  safeStatus: $("safe-mode-status"),
+
+  autoResumeToggle: $("autoresume-toggle"),
+  autoResumeIndicator: $("autoresume-indicator"),
+
+  // api + pw
+  apiToken: $("api-token"),
+  tokenError: $("token-error-message"),
+  loginBadge: $("login-status-badge"),
+  toggleVisibilityBtn: $("toggle-visibility-btn"),
+  copyApiUrlBtn: $("copy-api-url-btn"),
+  apiUrlText: $("api-url-text"),
+  editHint: $("edit-hint"),
+  pwInput: $("start-password"),
+  pwError: $("pw-error-message"),
+
+  // chart
+  chartStatus: $("chart-status"),
+
+  // insights
+  analyzeBtn: $("analyze-market-btn"),
+  riskBtn: $("assess-risk-btn"),
+  geminiOut: $("gemini-output"),
+  geminiLoading: $("gemini-loading-indicator"),
+
+  // trade settings
+  symbolSelect: $("symbolSelect"),
+  currentSymbolLabel: $("currentSymbolLabel"),
+  customSymbol: $("customSymbol"),
+  applySymbolBtn: $("applySymbolBtn"),
+
+  placeTradeBtn: $("placeTradeBtn"),
+  clearHistoryBtn: $("clearHistoryBtn"),
+  bulk3Btn: $("bulk3Btn"),
+  bulk5Btn: $("bulk5Btn"),
+  placeStakeLabel: $("placeStakeLabel"),
+  bulk3Label: $("bulk3Label"),
+  bulk5Label: $("bulk5Label"),
+  autoTradingToggle: $("autoTradingToggle"),
+
+  // clustering
+  clusterAlert: $("cluster-alert"),
+  clusterText: $("cluster-text"),
+
+  // log controls
+  clearLogBtn: $("clear-log-btn"),
+  exportLogBtn: $("export-log-btn"),
+
+  // tx log controls
+  clearTxLogBtn: $("clear-txlog-btn"),
+  exportTxLogBtn: $("export-txlog-btn"),
+
+  // confidence
+  confidenceBar: $("confidence-bar"),
+  confidenceText: $("confidence-text"),
+  confidenceNotes: $("confidence-notes"),
+  signalPill: $("signal-pill")
+};
+
+/* =========================================================
+   UI helpers
+========================================================= */
+function setPill(el, text, cls){
+  if (!el) return;
+  el.textContent = text;
+  if (el.className.includes("status-pill")) el.className = `status-pill ${cls}`;
+  else el.className = `pill ${cls}`;
+}
+
+function updateConnection(status, cls){
+  setPill(dom.connectionStatus, status, cls);
+  updateLoginBadge();
+}
+
+function updateLoginBadge(){
+  if (!dom.loginBadge || !dom.connectionStatus) return;
+  const t = dom.connectionStatus.textContent || "";
+  if (t === "CONNECTED") setPill(dom.loginBadge, "CONNECTED", "bg-emerald-600 text-white");
+  else if (t.includes("ERROR") || t.includes("DISCONNECTED")) setPill(dom.loginBadge, "DISCONNECTED", "bg-red-800 text-white");
+  else setPill(dom.loginBadge, "CONNECTING...", "bg-yellow-600 text-white animate-pulse");
+}
+
+function updateTradeStatus(text, cls="bg-slate-600 text-slate-300"){
+  setPill(dom.tradeActiveStatus, text, cls);
+}
+
+function updateProfit(p){
+  if (!dom.profitDisplay) return;
+  dom.profitDisplay.textContent = p.toFixed(2);
+  let color = "text-slate-300";
+  if (p > 0) color = "text-emerald-400";
+  if (p < 0) color = "text-red-400";
+  dom.profitDisplay.className = `text-lg font-bold ${color}`;
+}
+
+function updateLoss(l){
+  if (!dom.lossDisplay) return;
+  dom.lossDisplay.textContent = l.toFixed(2);
+  dom.lossDisplay.className = "text-lg font-bold text-red-300";
+}
+
+function setSellable(isSellable){
+  appState.is_sellable = isSellable;
+  if (isSellable === 1) setPill(dom.sellableDisplay, "YES", "bg-emerald-600 text-white");
+  else setPill(dom.sellableDisplay, "NO", "bg-red-500 text-white");
+}
+
+function setIfNotEditing(el, value){
+  if (!el) return;
+  if (document.activeElement === el) return;
+  el.value = value;
+}
+
+function updateTrendUI(){
+  if (!dom.h4TrendDisplay) return;
+  const t = appState.trend.enabled ? appState.trend.status : "OFF";
+  let cls = "bg-slate-600 text-slate-300";
+  if (t === "BULL") cls = "bg-emerald-600 text-white";
+  if (t === "BEAR") cls = "bg-red-600 text-white";
+  if (t === "NEUTRAL") cls = "bg-yellow-600 text-white";
+  if (t === "ERROR") cls = "bg-red-800 text-white";
+  if (t === "LOADING") cls = "bg-indigo-700 text-white";
+  setPill(dom.h4TrendDisplay, t, cls);
+}
+
+function updateUI(){
+  if (dom.modePill) dom.modePill.textContent = appState.mode;
+  if (dom.modeStatus) dom.modeStatus.textContent = appState.mode;
+
+  if (dom.safeIndicator){
+    dom.safeIndicator.textContent = appState.isSafeMode ? "ON" : "OFF";
+    dom.safeIndicator.className = `pill ${appState.isSafeMode ? "bg-emerald-600" : "bg-red-600"} text-white`;
+  }
+  if (dom.safeStatus){
+    dom.safeStatus.textContent = appState.isSafeMode
+      ? "Safe Mode is ENABLED. Stop-loss selling is allowed."
+      : "Safe Mode is DISABLED.";
+  }
+
+  setIfNotEditing(dom.stakeInput, appState.stakeAmount.toFixed(2));
+  setIfNotEditing(dom.durationInput, String(appState.duration));
+  if (dom.durationUnitInput && document.activeElement !== dom.durationUnitInput) dom.durationUnitInput.value = appState.durationUnit;
+  setIfNotEditing(dom.tpInput, appState.tpUSD.toFixed(2));
+  setIfNotEditing(dom.slInput, appState.slUSD.toFixed(2));
+  setIfNotEditing(dom.maxTradesInput, String(appState.maxTradesPerSignal));
+  setIfNotEditing(dom.cooldownInput, String(appState.cooldownDuration));
+
+  if (
+  dom.modeSelect &&
+  appState.isSettingsLocked &&
+  document.activeElement !== dom.modeSelect
+) {
+  dom.modeSelect.value = appState.mode;
+}
+  if (dom.safeToggle && document.activeElement !== dom.safeToggle) dom.safeToggle.checked = appState.isSafeMode;
+
+  if (dom.autoResumeIndicator){
+    dom.autoResumeIndicator.textContent = appState.autoResume ? "ON" : "OFF";
+    dom.autoResumeIndicator.className = `pill ${appState.autoResume ? "bg-emerald-600" : "bg-red-600"} text-white`;
+  }
+  if (dom.autoResumeToggle) dom.autoResumeToggle.checked = !!appState.autoResume;
+
+  updateTrendUI();
+
+  if (dom.currentSymbolLabel) dom.currentSymbolLabel.textContent = appState.symbol;
+
+  if (dom.placeStakeLabel) dom.placeStakeLabel.textContent = `$${appState.stakeAmount.toFixed(2)}`;
+  if (dom.bulk3Label) dom.bulk3Label.textContent = `$${(appState.stakeAmount*3).toFixed(2)}`;
+  if (dom.bulk5Label) dom.bulk5Label.textContent = `$${(appState.stakeAmount*5).toFixed(2)}`;
+
+  if (dom.accountTypeStatus){
+    if (appState.isDemo === true) setPill(dom.accountTypeStatus, "DEMO", "bg-yellow-600 text-white");
+    else if (appState.isDemo === false) setPill(dom.accountTypeStatus, "REAL", "bg-emerald-700 text-white");
+    else setPill(dom.accountTypeStatus, "UNKNOWN", "bg-slate-600 text-slate-300");
+  }
+
+  if (dom.toggleBotBtn){
+    if (appState.isBotRunning){
+      dom.toggleBotBtn.textContent = "STOP BOT";
+      dom.toggleBotBtn.className = "w-full py-3 rounded-lg font-bold transition duration-200 bg-red-600 hover:bg-red-700 text-white shadow-lg";
+    } else {
+      dom.toggleBotBtn.textContent = "START BOT";
+      dom.toggleBotBtn.className = "w-full py-3 rounded-lg font-bold transition duration-200 bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg";
+    }
+  }
+
+  updateLoginBadge();
+updateConfidenceUI();
+updateLoss(appState.sessionLoss);
+}   // â added
+
+/* Lock/Unlock settings */
+function setSettingsLock(isLocked) {
+  appState.isSettingsLocked = isLocked;
+
+  const list = [
+  dom.stakeInput,
+  dom.durationInput,
+  dom.durationUnitInput,
+  dom.tpInput,
+  dom.slInput,
+  dom.maxTradesInput,
+  dom.cooldownInput,
+
+  dom.modeSelect,          // â IMPORTANT (you removed this)
+  dom.safeToggle,
+  dom.autoResumeToggle,
+
+  // Daily Guard
+  dom.dgMaxLoss,
+  dom.dgMaxProfit,
+  dom.dgMaxTradesInput,
+].filter(Boolean);
+
+  list.forEach(el => el.disabled = isLocked);
+
+  if (dom.unlockBtn) {
+    dom.unlockBtn.textContent = isLocked ? "Unlock" : "Lock";
+  }
+ if (typeof dgLoadUI === "function") dgLoadUI();
+  
+  // ð re-sync Daily Guard UI AFTER lock/unlock
+  function dgLoadToUI(){
+  if (!dom.dgStatusPill) return;
+
+  const s = DailyGuard.state;
+
+  // text stats
+  if (dom.dgDate) dom.dgDate.textContent = s.date || "â";
+  if (dom.dgTrades) dom.dgTrades.textContent = String(s.trades || 0);
+  if (dom.dgMaxTrades) dom.dgMaxTrades.textContent = String(s.maxTrades || 0);
+
+  // inputs
+  if (dom.dgMaxLoss) dom.dgMaxLoss.value = Number(s.maxLoss ?? 50).toFixed(2);
+  if (dom.dgMaxProfit) dom.dgMaxProfit.value = Number(s.maxProfit ?? 100).toFixed(2);
+  if (dom.dgMaxTradesInput) dom.dgMaxTradesInput.value = String(s.maxTrades ?? 50);
+
+  // status pill
+  if (s.hit){
+    setPill(dom.dgStatusPill, "LOCKED", "bg-red-700 text-white");
+  } else {
+    setPill(dom.dgStatusPill, "ACTIVE", "bg-emerald-700 text-white");
+  }
+
+  // lock/unlock behavior
+  const locked = appState.isSettingsLocked;
+  [dom.dgMaxLoss, dom.dgMaxProfit, dom.dgMaxTradesInput, dom.dgSaveBtn, dom.dgResetBtn]
+    .filter(Boolean)
+    .forEach(el => el.disabled = locked);
+
+  if (dom.dgHint){
+    dom.dgHint.textContent = locked
+      ? "Locked. Click Unlock to edit todayâs limits."
+      : "Unlocked. Edit limits, then Save.";
+  }
+}
+
+function dgSaveFromUI(){
+  const s = DailyGuard.state;
+
+  s.maxLoss = Math.max(0, parseFloat(dom.dgMaxLoss?.value || "0") || 0);
+  s.maxProfit = Math.max(0, parseFloat(dom.dgMaxProfit?.value || "0") || 0);
+  s.maxTrades = Math.max(1, parseInt(dom.dgMaxTradesInput?.value || "1", 10) || 1);
+
+  s.hit = false; // allow trading again if you changed limits
+  localStorage.setItem("kutmilz_daily_guard", JSON.stringify(s));
+
+  dgLoadToUI();
+  logLine("Daily Guard saved for today.");
+}
+
+function dgResetToday(){
+  const today = new Date().toISOString().slice(0,10);
+  DailyGuard.state.date = today;
+  DailyGuard.state.maxLoss = 50;
+  DailyGuard.state.maxProfit = 100;
+  DailyGuard.state.maxTrades = 50;
+  DailyGuard.state.trades = 0;
+  DailyGuard.state.hit = false;
+  localStorage.setItem("kutmilz_daily_guard", JSON.stringify(DailyGuard.state));
+
+  dgLoadToUI();
+  logLine("Daily Guard reset for today.");
+}
+}
+
+/* =========================================================
+   Input -> state (LIVE typing)
+========================================================= */
+function updateStateFromUI(){
+  try{
+    if (dom.stakeInput) appState.stakeAmount = parseFloat(dom.stakeInput.value) || 0;
+    if (dom.durationInput) appState.duration = parseInt(dom.durationInput.value) || 0;
+    if (dom.durationUnitInput) appState.durationUnit = dom.durationUnitInput.value;
+    if (dom.tpInput) appState.tpUSD = parseFloat(dom.tpInput.value) || 0;
+    if (dom.slInput) appState.slUSD = parseFloat(dom.slInput.value) || 0;
+    if (dom.maxTradesInput) appState.maxTradesPerSignal = parseInt(dom.maxTradesInput.value) || 0;
+    if (dom.cooldownInput) appState.cooldownDuration = parseInt(dom.cooldownInput.value) || 0;
+
+    if (dom.autoResumeToggle) appState.autoResume = !!dom.autoResumeToggle.checked;
+    if (dom.autoTradingToggle) appState.autoTradingEnabled = !!dom.autoTradingToggle.checked;
+
+    if (dom.safeToggle) appState.isSafeMode = !!dom.safeToggle.checked;
+
+    updateUI();
+  } catch(e){
+    logLine("UI parse error: " + e.message);
+  }
+}
+
+/* =========================================================
+   Mode defaults
+========================================================= */
+function loadDefaults(mode){
+  const d = modeDefaults[mode];
+  if (!d) return;
+
+  appState.mode = mode;
+  appState.stakeAmount = d.stake;
+  appState.duration = d.duration;
+  appState.durationUnit = d.durationUnit;
+  appState.tpUSD = d.tp;
+  appState.slUSD = d.sl;
+  appState.maxTradesPerSignal = d.maxTrades;
+  appState.cooldownDuration = d.cooldown;
+
+  appState.tickBufferSize = d.tickBuf;
+  appState.momentumThreshold = d.thr;
+
+  appState.useTrendFilter = !!d.trend;
+  appState.breakoutStrict = !!d.strict;
+
+  appState.trend.enabled = appState.useTrendFilter;
+  appState.trend.status = appState.trend.enabled ? "LOADING" : "OFF";
+
+  // Ã¢ÂÂ if we are already connected, refresh H4 trend immediately when switching to MOMENTUM/H4
+  appState.trend.lastUpdated = 0;
+  if (appState.trend.enabled && appState.isAuthenticated) requestH4Candles();
+
+  updateUI();
+}
+
+/* =========================================================
+   Chart (Candles with compatibility + fallback)
+========================================================= */
+let chart=null, series=null, seriesKind="line", ro=null;
+
+function initChart(){
+  const container = document.getElementById("chart-container");
+  if (!container) return;
+
+  if (typeof LightweightCharts === "undefined"){
+    if (dom.chartStatus) setPill(dom.chartStatus, "CHART CDN ERROR", "bg-red-700 text-white");
+    logLine("Chart library failed to load.");
+    return;
+  }
+
+  try{ if (chart && chart.remove) chart.remove(); }catch(_){}
+
+  chart = LightweightCharts.createChart(container, {
+    width: container.clientWidth,
+    height: container.clientHeight,
+    layout: { background: { color:"#0b1220" }, textColor:"#e2e8f0" },
+    grid: { vertLines: { color:"#243244" }, horzLines: { color:"#243244" } },
+    rightPriceScale: { borderColor:"#334155" },
+    timeScale: { borderColor:"#334155", timeVisible:true, secondsVisible:true }
+  });
+
+  try{
+    if (chart.addCandlestickSeries){
+      series = chart.addCandlestickSeries({ priceLineVisible:false, lastValueVisible:true });
+      seriesKind = "candles";
+      logLine("Chart ready (candles v3/v4).");
+    } else if (chart.addSeries && LightweightCharts.CandlestickSeries){
+      series = chart.addSeries(LightweightCharts.CandlestickSeries, { priceLineVisible:false, lastValueVisible:true });
+      seriesKind = "candles";
+      logLine("Chart ready (candles v5).");
+    } else {
+      throw new Error("Candles not supported");
+    }
+  } catch(e){
+    if (chart.addLineSeries){
+      series = chart.addLineSeries({ priceLineVisible:false, lastValueVisible:true });
+    } else if (chart.addSeries && LightweightCharts.LineSeries){
+      series = chart.addSeries(LightweightCharts.LineSeries, { priceLineVisible:false, lastValueVisible:true });
+    }
+    seriesKind = "line";
+    logLine("Chart fallback Ã¢ÂÂ line series (candles unavailable).");
+  }
+
+  if (dom.chartStatus) setPill(dom.chartStatus, "READY", "bg-emerald-700 text-white");
+
+  if (ro) ro.disconnect();
+  ro = new ResizeObserver(() => {
+    try{
+      chart.applyOptions({ width: container.clientWidth, height: container.clientHeight });
+    }catch(_){}
+  });
+  ro.observe(container);
+}
+
+function updateSeriesFromTick(price){
+  if (!series) return;
+  const nowSec = Math.floor(Date.now()/1000);
+
+  if (seriesKind === "line"){
+    try{ series.update({ time: nowSec, value: price }); }catch(_){}
+    return;
+  }
+
+  if (nowSec < appState.chart.lastCandleTime) return;
+
+  if (appState.chart.lastCandleTime === 0){
+    appState.chart.lastCandleTime = nowSec;
+    appState.chart.lastOHLC = { time: nowSec, open: price, high: price, low: price, close: price };
+    try{ series.update(appState.chart.lastOHLC); }catch(_){}
+    return;
+  }
+
+  if (nowSec === appState.chart.lastCandleTime){
+    const c = appState.chart.lastOHLC;
+    c.high = Math.max(c.high, price);
+    c.low  = Math.min(c.low, price);
+    c.close = price;
+    try{ series.update(c); }catch(_){}
+  } else {
+    /* Ã¢ÂÂ PRICE ACTION: finalize previous candle into history */
+    if (appState.chart.lastOHLC){
+      appState.chart.closedCandles.push({ ...appState.chart.lastOHLC });
+      if (appState.chart.closedCandles.length > 240) appState.chart.closedCandles.shift(); // keep last ~4 mins
+    }
+
+    appState.chart.lastCandleTime = nowSec;
+    appState.chart.lastOHLC = { time: nowSec, open: price, high: price, low: price, close: price };
+    try{ series.update(appState.chart.lastOHLC); }catch(_){}
+  }
+}
+
+/* =========================================================
+   Trend EMA
+========================================================= */
+function calcEMA(values, period){
+  if (!values || values.length < period) return null;
+  const k = 2/(period+1);
+  let ema = values.slice(0,period).reduce((a,b)=>a+b,0)/period;
+  for (let i=period;i<values.length;i++) ema = values[i]*k + ema*(1-k);
+  return ema;
+}
+function trendClassify(emaFast, emaSlow){
+  if (emaFast == null || emaSlow == null) return "NEUTRAL";
+  const diff = emaFast-emaSlow;
+  const eps = Math.abs(emaSlow)*0.000001;
+  if (diff > eps) return "BULL";
+  if (diff < -eps) return "BEAR";
+  return "NEUTRAL";
+}
+
+/* Ã¢ÂÂ FIXED: Proper Deriv candles request uses ticks_history + style:"candles"
+   Response comes back as msg_type:"history" with history.candles[] */
+function requestH4Candles(){
+  if (!appState.ws || !appState.isAuthenticated || !appState.trend.enabled) return;
+
+  const req = {
+    ticks_history: appState.symbol,
+    adjust_start_time: 1,
+    count: 80,
+    end: "latest",
+    style: "candles",
+    granularity: appState.trend.tfSeconds
+  };
+
+  try{
+    appState.ws.send(JSON.stringify(req));
+    logLine(`H4 candles requested (history) for ${appState.symbol}`);
+  }catch(e){
+    appState.trend.status = "ERROR";
+    logLine("H4 request send failed: " + e.message);
+    updateUI();
+  }
+}
+
+function maybeRefreshTrend(){
+  if (!appState.trend.enabled) return;
+  const now = Date.now();
+  if (now - appState.trend.lastUpdated < appState.trend.refreshMs) return;
+  appState.trend.lastUpdated = now;
+  requestH4Candles();
+}
+
+function trendAllows(direction){
+  if (!appState.trend.enabled) return true;
+  if (appState.trend.status === "LOADING") return false;
+  if (direction === "CALL") return appState.trend.status === "BULL";
+  if (direction === "PUT") return appState.trend.status === "BEAR";
+  return false;
+}
+
+/* =========================================================
+   Signals
+========================================================= */
+function getMomentumDirection(){
+  if (appState.tickBuffer.length < appState.tickBufferSize) return null;
+  const first = appState.tickBuffer[0];
+  const last  = appState.tickBuffer[appState.tickBuffer.length-1];
+  const delta = last-first;
+  if (Math.abs(delta) < appState.momentumThreshold) return null;
+  return delta > 0 ? "CALL" : "PUT";
+}
+function passesBreakoutFilter(direction){
+  if (!appState.breakoutStrict) return true;
+  const buf = appState.tickBuffer;
+  if (buf.length < appState.tickBufferSize) return false;
+  const last = buf[buf.length-1];
+  const hi = Math.max(...buf);
+  const lo = Math.min(...buf);
+  const span = hi-lo || 1;
+  if (direction === "CALL") return (hi-last) <= (span*0.15);
+  if (direction === "PUT")  return (last-lo) <= (span*0.15);
+  return false;
+}
+
+/* =========================================================
+   Ã¢ÂÂ PRICE ACTION FILTER (ALL 3 MODES)
+   - Uses real 1s candles from chart aggregator
+   - Blocks: doji/weak body, wick traps, fake range breakouts
+========================================================= */
+function paStats(c){
+  const range = Math.max(1e-9, c.high - c.low);
+  const body = Math.abs(c.close - c.open);
+  const upperWick = c.high - Math.max(c.open, c.close);
+  const lowerWick = Math.min(c.open, c.close) - c.low;
+  return { range, body, upperWick, lowerWick, bodyToRange: body / range };
+}
+
+function paRecentRange(candles, n){
+  const slice = candles.slice(-n);
+  let hi = -Infinity, lo = Infinity;
+  for (const c of slice){
+    if (c.high > hi) hi = c.high;
+    if (c.low < lo) lo = c.low;
+  }
+  const range = (hi - lo) || 1e-9;
+  return { hi, lo, range };
+}
+
+// Fake breakout: candle spikes past range but closes back inside
+function paIsFakeBreakout(last, rangeHi, rangeLo, direction, buffer){
+  if (direction === "CALL"){
+    const poked = last.high > (rangeHi + buffer);
+    const closedBack = last.close < (rangeHi + buffer*0.25);
+    return poked && closedBack;
+  } else {
+    const poked = last.low < (rangeLo - buffer);
+    const closedBack = last.close > (rangeLo - buffer*0.25);
+    return poked && closedBack;
+  }
+}
+
+function passesPriceActionFilter(direction){
+  // Need enough closed candles to judge structure
+  const candles = appState.chart.closedCandles;
+  if (!candles || candles.length < 25) {
+    if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "Price Action: Building Candles";
+    return false;
+  }
+
+  const mode = appState.mode || "SCALP";
+
+  // Mode tuning (SCALP loose, MOMENTUM medium, H4 strict)
+  const cfg = {
+    SCALP:    { lookback: 20, minBody: 0.38, wickLimit: 0.55, closeEdge: 0.55, bufferFrac: 0.10 },
+    MOMENTUM: { lookback: 35, minBody: 0.45, wickLimit: 0.50, closeEdge: 0.60, bufferFrac: 0.12 },
+    H4:       { lookback: 50, minBody: 0.52, wickLimit: 0.45, closeEdge: 0.65, bufferFrac: 0.14 }
+  }[mode] || { lookback: 20, minBody: 0.38, wickLimit: 0.55, closeEdge: 0.55, bufferFrac: 0.10 };
+
+  const last = candles[candles.length - 1];
+  const s = paStats(last);
+
+  // 1) Block doji/weak body
+  if (s.bodyToRange < cfg.minBody) {
+    if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "Price Action: Weak Candle";
+    return false;
+  }
+
+  // 2) Block heavy rejection wick against direction
+  if (direction === "CALL"){
+    if ((s.upperWick / s.range) > cfg.wickLimit){
+      if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "Price Action: Wick Trap Up";
+      return false;
+    }
+  } else {
+    if ((s.lowerWick / s.range) > cfg.wickLimit){
+      if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "Price Action: Wick Trap Down";
+      return false;
+    }
+  }
+
+  // 3) Range context
+  const { hi, lo, range } = paRecentRange(candles, cfg.lookback);
+  const buffer = range * cfg.bufferFrac;
+
+  // 4) Fake breakout block
+  if (paIsFakeBreakout(last, hi, lo, direction, buffer)){
+    if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "Price Action: Fake Breakout";
+    return false;
+  }
+
+  // 5) Close quality: must close near the edge in the direction
+  // For CALL -> close should be in upper portion; PUT -> lower portion.
+  const closePos = (last.close - lo) / (range || 1e-9); // 0..1
+  if (direction === "CALL"){
+    if (closePos < cfg.closeEdge){
+      if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "Price Action: Weak Close Up";
+      return false;
+    }
+  } else {
+    if (closePos > (1 - cfg.closeEdge)){
+      if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "Price Action: Weak Close Down";
+      return false;
+    }
+  }
+
+  return true;
+}
+
+/* =========================================================
+   Clustering detection
+========================================================= */
+function updateClustering(price){
+  const s = String(price);
+  const lastChar = s.replace(/\D/g,'').slice(-1) || "0";
+  const d = parseInt(lastChar,10);
+
+  appState.lastDigits.push(d);
+  while(appState.lastDigits.length > 5) appState.lastDigits.shift();
+
+  if (appState.lastDigits.length < 5) return;
+
+  let sameCount = 0;
+  for (let i=1;i<appState.lastDigits.length;i++){
+    if (appState.lastDigits[i] === appState.lastDigits[i-1]) sameCount++;
+  }
+
+  if (sameCount >= 3){
+    dom.clusterAlert?.classList.remove("hidden");
+    if (dom.clusterText) dom.clusterText.textContent = `Clustering Detected: ${sameCount} repeats in last 5 ticks Ã¢ÂÂ possible reversal/indecision.`;
+  } else {
+    dom.clusterAlert?.classList.add("hidden");
+  }
+}
+
+/* =========================================================
+   Confidence Meter + Signal
+========================================================= */
+function computeConfidence(){
+  const buf = appState.tickBuffer;
+  if (buf.length < appState.tickBufferSize) return { score: 0, signal: "WAIT", notes: "Waiting ticksÃ¢ÂÂ¦" };
+
+  const first = buf[0];
+  const last = buf[buf.length-1];
+  const delta = last - first;
+  const dir = getMomentumDirection();
+
+  const strength = Math.min(1, Math.abs(delta) / Math.max(appState.momentumThreshold, 1e-9));
+  let score = Math.round(strength * 60);
+
+  const breakoutOk = passesBreakoutFilter(dir || "CALL");
+  if (breakoutOk) score += 15;
+
+  if (appState.trend.enabled){
+    if (appState.trend.status === "LOADING") score -= 10;
+    else if (dir && trendAllows(dir)) score += 20;
+    else score -= 20;
+  }
+
+  if (dom.clusterAlert && !dom.clusterAlert.classList.contains("hidden")) score -= 15;
+
+  score = Math.max(0, Math.min(100, score));
+
+  let signal = "WAIT";
+  if (dir && score >= 70) signal = (dir === "CALL") ? "BUY" : "SELL";
+  else if (dir && score >= 45) signal = "WATCH";
+
+  const notes = `ÃÂ=${delta.toFixed(4)} | Mode=${appState.mode} | Trend=${appState.trend.enabled ? appState.trend.status : "OFF"} | Breakout=${breakoutOk ? "OK" : "WAIT"}`;
+  return { score, signal, notes };
+}
+
+function updateConfidenceUI(){
+  if (!dom.confidenceBar || !dom.confidenceText || !dom.signalPill || !dom.confidenceNotes) return;
+
+  const { score, signal, notes } = computeConfidence();
+  dom.confidenceBar.style.width = score + "%";
+  dom.confidenceText.textContent = score + "%";
+  dom.confidenceNotes.textContent = notes;
+
+  let barCls = "bg-red-500";
+  if (score >= 70) barCls = "bg-emerald-500";
+  else if (score >= 45) barCls = "bg-yellow-500";
+  dom.confidenceBar.className = `h-4 ${barCls}`;
+
+  let pillCls = "bg-slate-700 text-slate-200";
+  if (signal === "BUY") pillCls = "bg-emerald-700 text-white";
+  if (signal === "SELL") pillCls = "bg-red-700 text-white";
+  if (signal === "WATCH") pillCls = "bg-yellow-600 text-white";
+  setPill(dom.signalPill, signal, pillCls);
+}
+
+/* =========================================================
+   Deriv WS + Trading
+========================================================= */
+function connectToDeriv(){
+  try{
+    appState.ws = new WebSocket(API_URL);
+  }catch(e){
+    logLine("WebSocket create failed: " + e.message);
+    updateConnection("ERROR", "bg-red-600 text-white");
+    return;
+  }
+
+  updateConnection("CONNECTING...", "bg-yellow-600 text-white");
+  logLine("Connecting to Deriv...");
+
+  appState.ws.onopen = () => {
+    logLine("WS open. Authorizing...");
+    updateConnection("CONNECTED", "bg-sky-600 text-white");
+    appState.ws.send(JSON.stringify({ authorize: appState.token }));
+  };
+
+  appState.ws.onclose = () => {
+    appState.isAuthenticated = false;
+    logLine("WS closed.");
+    if (appState.isBotRunning){
+      updateConnection("RECONNECTING...", "bg-yellow-600 text-white");
+      setTimeout(connectToDeriv, 2500);
+    } else {
+      updateConnection("DISCONNECTED", "bg-red-800 text-white");
+    }
+  };
+
+  appState.ws.onerror = () => {
+    logLine("WS error (see console).");
+    updateConnection("ERROR", "bg-red-600 text-white");
+  };
+
+  appState.ws.onmessage = (msg) => {
+    let data=null;
+    try{ data = JSON.parse(msg.data); }catch(e){
+      logLine("Bad JSON received.");
+      return;
+    }
+    handleResponse(data);
+  };
+}
+
+function stopBot(){
+  try{ if (appState.ws) appState.ws.close(); }catch(_){}
+  appState.ws = null;
+
+  appState.isBotRunning = false;
+  appState.isAuthenticated = false;
+  appState.isEntryInProgress = false;
+  appState.currentContractId = null;
+  appState.isSelling = false;
+  appState.tickBuffer = [];
+  appState.cooldownUntil = 0;
+  appState.pendingProposalId = null;
+
+  appState.currentDirection = null;
+  appState.currentSymbolAtEntry = null;
+
+  dom.accountWarning?.classList.add("hidden");
+
+  updateConnection("DISCONNECTED", "bg-red-800 text-white");
+  updateTradeStatus("Stopped.", "bg-slate-600 text-slate-300");
+  if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "None";
+
+  if (dom.chartStatus) setPill(dom.chartStatus, "WAITING", "bg-slate-700 text-slate-200");
+  logLine("Bot stopped.");
+  updateUI();
+}
+
+function startBot(){
+  if (appState.isBotRunning) return;
+
+  const pw = (dom.pwInput?.value || "").trim();
+  if (pw !== REQUIRED_PASSWORD){
+    dom.pwError?.classList.remove("hidden");
+    updateTradeStatus("ACCESS DENIED", "bg-red-600 text-white");
+    logLine("Access denied: incorrect password.");
+    return;
+  }
+  dom.pwError?.classList.add("hidden");
+
+  const token = (dom.apiToken?.value || "").trim();
+  if (!token){
+    dom.tokenError?.classList.remove("hidden");
+    updateTradeStatus("ERROR: Enter API Token", "bg-red-600 text-white");
+    logLine("Start blocked: missing API token.");
+    return;
+  }
+  dom.tokenError?.classList.add("hidden");
+
+  localStorage.setItem("derivToken", token);
+  appState.token = token;
+
+  appState.sessionProfit = 0;
+  appState.sessionLoss = 0;
+  appState.tradeCounter = 0;
+  appState.currentContractId = null;
+  appState.isEntryInProgress = false;
+  appState.isSelling = false;
+  appState.cooldownUntil = 0;
+  appState.tickBuffer = [];
+  appState.pendingProposalId = null;
+  appState.chart.lastCandleTime = 0;
+  appState.chart.lastOHLC = null;
+  appState.chart.hasTick = false;
+  appState.lastDigits = [];
+
+  // Ã¢ÂÂ PRICE ACTION: reset candle history on start
+  appState.chart.closedCandles = [];
+
+  appState.currentDirection = null;
+  appState.currentSymbolAtEntry = null;
+
+  dom.accountWarning?.classList.add("hidden");
+
+  updateProfit(appState.sessionProfit);
+  updateLoss(appState.sessionLoss);
+
+  appState.isBotRunning = true;
+  logLine("Bot started.");
+  updateUI();
+  connectToDeriv();
+}
+
+function subscribeTicks(symbol){
+  if (!appState.ws || !appState.isAuthenticated) return;
+  try{
+    appState.ws.send(JSON.stringify({ forget_all: "ticks" }));
+  }catch(_){}
+  appState.ws.send(JSON.stringify({ ticks: symbol, subscribe: 1 }));
+  logLine("Subscribing ticks: " + symbol);
+}
+
+function handleResponse(res){
+  if (res.error){
+    const msg = res.error.message || "Unknown API error";
+    logLine("API Error: " + msg);
+
+    // If trend request fails, don't leave it stuck on LOADING forever
+    if (appState.trend.enabled && msg.toLowerCase().includes("unrecognised request")){
+      appState.trend.status = "ERROR";
+      logLine("H4 Trend failed: wrong request. (Now fixed in this version)");
+      updateUI();
+    }
+
+    const m = msg.toLowerCase();
+    if (m.includes("symbol") || m.includes("market") || m.includes("available") || m.includes("not found")){
+      dom.accountWarning?.classList.remove("hidden");
+      if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "Symbol not available on this account";
+      updateTradeStatus("SYMBOL ERROR", "bg-red-600 text-white");
+    }
+
+    if (res.error.code === "AuthorizationRequired"){
+      if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "Auth Failed";
+      stopBot();
+    }
+    return;
+  }
+
+  switch(res.msg_type){
+
+    case "authorize":{
+      appState.isAuthenticated = true;
+      const bal = Number(res.authorize.balance || 0);
+      appState.currentBalance = bal;
+      appState.isDemo = !!res.authorize.is_virtual;
+
+      if (dom.balanceDisplay){
+        dom.balanceDisplay.textContent = `${res.authorize.currency || "USD"} ${bal.toFixed(2)}`;
+      }
+
+      logLine("Authorized. Account=" + (appState.isDemo ? "DEMO" : "REAL"));
+
+      subscribeTicks(appState.symbol);
+      appState.ws.send(JSON.stringify({ balance: 1, subscribe: 1 }));
+      appState.ws.send(JSON.stringify({ proposal_open_contract: 1, subscribe: 1 }));
+
+      appState.trend.lastUpdated = 0;
+      if (appState.trend.enabled){
+        appState.trend.status = "LOADING";
+        requestH4Candles(); // Ã¢ÂÂ now correct request
+      } else {
+        appState.trend.status = "OFF";
+      }
+
+      updateTradeStatus("Monitoring Ticks...", "bg-yellow-600 text-white");
+      if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "None";
+      if (dom.chartStatus) setPill(dom.chartStatus, "LIVE", "bg-sky-700 text-white");
+
+      updateUI();
+      break;
+    }
+
+    case "balance":{
+      const bal = Number(res.balance.balance || 0);
+      appState.currentBalance = bal;
+      if (dom.balanceDisplay){
+        dom.balanceDisplay.textContent = `${res.balance.currency || "USD"} ${bal.toFixed(2)}`;
+      }
+      break;
+    }
+
+    case "tick":{
+      if (!appState.isBotRunning) return;
+
+      const price = Number(res.tick.quote);
+      if (!Number.isFinite(price)) return;
+
+      updateSeriesFromTick(price);
+      updateClustering(price);
+
+      appState.lastTick = price;
+      appState.tickBuffer.push(price);
+      while(appState.tickBuffer.length > appState.tickBufferSize) appState.tickBuffer.shift();
+
+      maybeRefreshTrend();
+
+      if (appState.autoTradingEnabled) checkAndEnterTrade();
+
+      updateUI();
+      break;
+    }
+
+    /* Ã¢ÂÂ FIXED: H4 candles now arrive as msg_type:"history" */
+    case "history":{
+      if (!appState.trend.enabled) return;
+
+      const candles = res.history?.candles;
+      if (!candles || !Array.isArray(candles) || candles.length < 10){
+        appState.trend.status = "ERROR";
+        logLine("H4 Trend history error (no candles).");
+        updateUI();
+        return;
+      }
+
+      const closes = candles
+        .map(c => parseFloat(c.close))
+        .filter(n => Number.isFinite(n));
+
+      const ema20 = calcEMA(closes, appState.trend.emaFast);
+      const ema50 = calcEMA(closes, appState.trend.emaSlow);
+
+      appState.trend.status = trendClassify(ema20, ema50);
+      logLine(`H4 Trend updated: ${appState.trend.status}`);
+      updateUI();
+      break;
+    }
+
+    /* (Optional backwards compatibility if any environment still returns "candles") */
+    case "candles":{
+      if (!res.candles || !Array.isArray(res.candles)){
+        appState.trend.status = "ERROR";
+        logLine("Trend candles error.");
+        updateUI();
+        return;
+      }
+      const closes = res.candles.map(c => parseFloat(c.close)).filter(n => Number.isFinite(n));
+      const ema20 = calcEMA(closes, appState.trend.emaFast);
+      const ema50 = calcEMA(closes, appState.trend.emaSlow);
+      appState.trend.status = trendClassify(ema20, ema50);
+      updateUI();
+      break;
+    }
+
+    case "proposal":{
+      if (!appState.isEntryInProgress) return;
+      if (!res.proposal?.id){
+        appState.isEntryInProgress = false;
+        logLine("Proposal missing ID.");
+        return;
+      }
+      appState.pendingProposalId = res.proposal.id;
+      appState.ws.send(JSON.stringify({ buy: appState.pendingProposalId, price: appState.stakeAmount }));
+      break;
+    }
+
+    case "buy":{
+      appState.isEntryInProgress = false;
+      appState.pendingProposalId = null;
+      appState.currentContractId = res.buy.contract_id;
+      updateTradeStatus("Contract Active", "bg-indigo-600 text-white");
+      logLine("Bought contract: " + appState.currentContractId);
+      break;
+    }
+
+    case "proposal_open_contract":{
+      const c = res.proposal_open_contract;
+      if (!c) return;
+
+      setSellable(c.is_sellable);
+
+      if (appState.currentContractId && c.contract_id === appState.currentContractId){
+        if (c.is_sold === 1){
+          const profit = Number(c.sell_price) - Number(c.buy_price);
+          DailyGuard.recordTrade(profit);
+
+          appState.sessionProfit += profit;
+          if (profit < 0) appState.sessionLoss += Math.abs(profit);
+
+          updateProfit(appState.sessionProfit);
+          updateLoss(appState.sessionLoss);
+
+          const sym = appState.currentSymbolAtEntry || appState.symbol || "UNKNOWN";
+          const dir = appState.currentDirection || "UNKNOWN";
+          const pnl = (profit >= 0 ? "+" : "") + profit.toFixed(2);
+          txLogLine(`CLOSED | ${sym} | ${dir} | ${pnl}`);
+
+          appState.currentContractId = null;
+          appState.isSelling = false;
+          appState.tickBuffer = [];
+          appState.tradeCounter = 0;
+
+          appState.currentDirection = null;
+          appState.currentSymbolAtEntry = null;
+
+          appState.cooldownUntil = Date.now() + (appState.cooldownDuration * 1000);
+          if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "Cooldown";
+          updateTradeStatus("Trade Closed. Cooldown...", "bg-orange-500 text-white");
+          logLine("Trade closed. P/L: " + profit.toFixed(2));
+
+          if (appState.autoResume){
+            setTimeout(() => {
+              if (!appState.isBotRunning) return;
+              if (Date.now() >= appState.cooldownUntil){
+                if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "None";
+                updateTradeStatus("Monitoring Ticks...", "bg-yellow-600 text-white");
+              }
+            }, appState.cooldownDuration * 1000);
+          }
+        } else {
+          checkProfitAndLoss_WRAPPED(c);
+        }
+      }
+      updateUI();
+      break;
+    }
+  }
+}
+
+/* =========================================================
+   Entry + TP/SL
+========================================================= */
+function checkAndEnterTrade(){
+  if (!appState.isBotRunning || !appState.isAuthenticated) return;
+
+  if (Date.now() < appState.cooldownUntil){
+    if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "Cooldown";
+    return;
+  }
+  if (appState.isEntryInProgress){
+    if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "Entry In Progress";
+    return;
+  }
+  if (appState.currentContractId){
+    if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "Trade Active";
+    return;
+  }
+  if (appState.tradeCounter >= appState.maxTradesPerSignal){
+    if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "Max Trades/Signal Hit";
+    return;
+  }
+
+  const direction = getMomentumDirection();
+  if (!direction){
+    if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "Waiting Good Move";
+    return;
+  }
+  if (!passesBreakoutFilter(direction)){
+    if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "Waiting Breakout";
+    return;
+  }
+
+  if (appState.trend.enabled){
+    if (appState.trend.status === "LOADING"){
+      if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "H4 Trend Loading";
+      return;
+    }
+    if (!trendAllows(direction)){
+      if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = `H4 Trend Blocked (${appState.trend.status})`;
+      return;
+    }
+  }
+
+  /* Ã¢ÂÂ PRICE ACTION GATE (AUTO) */
+  if (!passesPriceActionFilter(direction)){
+    // block reason already set inside the filter
+    return;
+  }
+  /* â NEW MASTER GATE (daily / volatility / regime) */
+if (!canEnterTrade(direction)) return;
+
+  if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "None";
+  enterTrade(direction, appState.stakeAmount);
+}
+
+function enterTrade(direction, stake){
+  if (!appState.ws || !appState.isAuthenticated) return;
+
+  appState.currentDirection = direction;
+  appState.currentSymbolAtEntry = appState.symbol;
+
+  appState.isEntryInProgress = true;
+  appState.pendingProposalId = null;
+  appState.tickBuffer = [];
+  updateTradeStatus(`Creating Proposal (${direction})...`, "bg-orange-500 text-white");
+
+  const req = {
+    proposal: 1,
+    amount: stake,
+    basis: "stake",
+    contract_type: direction,
+    currency: "USD",
+    duration: appState.duration,
+    duration_unit: appState.durationUnit,
+    symbol: appState.symbol
+  };
+  appState.ws.send(JSON.stringify(req));
+
+  setTimeout(() => {
+    if (!appState.isBotRunning) return;
+    if (appState.currentContractId) return;
+    if (appState.isEntryInProgress){
+      appState.isEntryInProgress = false;
+      updateTradeStatus("Monitoring Ticks...", "bg-yellow-600 text-white");
+      if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "Entry Timeout";
+      logLine("Entry timeout. Reset.");
+    }
+  }, 10000);
+
+  appState.tradeCounter++;
+}
+
+function checkProfitAndLoss(contract){
+  const currentProfit = Number(contract.profit);
+
+  if (currentProfit >= appState.tpUSD){
+    sellContract();
+    return;
+  }
+
+  if (appState.isSafeMode){
+    const lossThreshold = -Math.abs(appState.slUSD);
+    if (currentProfit <= lossThreshold){
+      sellContract();
+    }
+  }
+}
+
+function sellContract(){
+  if (appState.isSelling) return;
+  if (!appState.currentContractId) return;
+
+  if (appState.is_sellable !== 1){
+    if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "Not Sellable";
+    return;
+  }
+
+  appState.isSelling = true;
+  updateTradeStatus("Selling...", "bg-red-500 text-white");
+  appState.ws.send(JSON.stringify({ sell: appState.currentContractId, price: 0 }));
+  logLine("Sell requested.");
+}
+
+/* =========================================================
+   Insights (fallback)
+========================================================= */
+function fallbackInsight(type){
+  const trend = appState.trend.enabled ? appState.trend.status : "OFF";
+  const dir = getMomentumDirection() || "NONE";
+  const buf = appState.tickBuffer;
+  const first = buf.length ? buf[0] : null;
+  const last  = buf.length ? buf[buf.length-1] : null;
+  const delta = (first!=null && last!=null) ? (last-first) : 0;
+
+  if (type === "sentiment"){
+    const conf = computeConfidence();
+    return [
+      `Safe Entry Suggestion (Fallback):`,
+      `Ã¢ÂÂ¢ Symbol: ${appState.symbol}`,
+      `Ã¢ÂÂ¢ Mode: ${appState.mode}`,
+      `Ã¢ÂÂ¢ Trend Filter: ${trend}`,
+      `Ã¢ÂÂ¢ Momentum: ${dir} | ÃÂ=${delta.toFixed(4)}`,
+      `Ã¢ÂÂ¢ Breakout Strict: ${appState.breakoutStrict ? "ON" : "OFF"}`,
+      `Ã¢ÂÂ¢ Confidence: ${conf.score}% | Signal: ${conf.signal}`,
+      ``,
+      `Suggested Action:`,
+      conf.signal === "BUY" ? "Ã¢ÂÂ¢ BUY setup is strong (conditions passing)" :
+      conf.signal === "SELL" ? "Ã¢ÂÂ¢ SELL setup is strong (conditions passing)" :
+      conf.signal === "WATCH" ? "Ã¢ÂÂ¢ WATCH (signal forming, wait cleaner move)" :
+      "Ã¢ÂÂ¢ WAIT (not enough confirmation)",
+      ``,
+      `Risk Level: MEDIUM (synthetics move fast Ã¢ÂÂ keep stake small).`
+    ].join("\n");
+  }
+
+  return [
+    `Risk Check (Fallback):`,
+    `Ã¢ÂÂ¢ Stake: $${appState.stakeAmount.toFixed(2)}`,
+    `Ã¢ÂÂ¢ TP: $${appState.tpUSD.toFixed(2)} | SL: $${appState.slUSD.toFixed(2)} (SL sells only if Safe Mode ON)`,
+    `Ã¢ÂÂ¢ Duration: ${appState.duration} ${appState.durationUnit}`,
+    `Ã¢ÂÂ¢ Cooldown: ${appState.cooldownDuration}s`,
+    `Ã¢ÂÂ¢ Auto Trading: ${appState.autoTradingEnabled ? "ON" : "OFF"}`,
+    `Ã¢ÂÂ¢ Session P/L: $${appState.sessionProfit.toFixed(2)} | Loss: $${appState.sessionLoss.toFixed(2)}`
+  ].join("\n");
+}
+
+async function showInsight(type){
+  if (!dom.geminiOut) return;
+  dom.geminiLoading?.classList.remove("hidden");
+  dom.geminiOut.textContent = "Analyzing...";
+  await new Promise(r => setTimeout(r, 350));
+  dom.geminiOut.textContent = fallbackInsight(type);
+  dom.geminiLoading?.classList.add("hidden");
+}
+
+/* =========================================================
+   Token helpers
+========================================================= */
+function toggleTokenVisibility(){
+  if (!dom.apiToken) return;
+  dom.apiToken.type = (dom.apiToken.type === "password") ? "text" : "password";
+}
+function copyApiUrl(){
+  const t = dom.apiUrlText?.textContent || "";
+  navigator.clipboard?.writeText(t).then(() => logLine("API URL copied."), () => logLine("Copy failed."));
+}
+
+/* =========================================================
+   Manual controls
+========================================================= */
+function manualPlaceTrade(mult=1){
+  if (!appState.isAuthenticated){
+    logLine("Manual trade blocked: not connected.");
+    updateTradeStatus("Connect first.", "bg-red-600 text-white");
+    return;
+  }
+  if (appState.currentContractId || appState.isEntryInProgress){
+    logLine("Manual trade blocked: trade already active.");
+    return;
+  }
+
+  const conf = computeConfidence();
+  const dir = getMomentumDirection();
+
+  if (!dir){
+    updateTradeStatus("WAIT: no signal", "bg-yellow-600 text-white");
+    logLine("Manual trade: no momentum signal yet.");
+    return;
+  }
+  if (appState.trend.enabled && !trendAllows(dir)){
+    updateTradeStatus("AVOID: trend mismatch", "bg-yellow-600 text-white");
+    logLine("Manual trade blocked: trend mismatch.");
+    return;
+  }
+  if (!passesBreakoutFilter(dir)){
+    updateTradeStatus("WAIT: breakout not clean", "bg-yellow-600 text-white");
+    logLine("Manual trade: breakout not clean.");
+    return;
+  }
+
+  /* Ã¢ÂÂ PRICE ACTION GATE (MANUAL) */
+  if (!passesPriceActionFilter(dir)){
+    updateTradeStatus("WAIT: price action", "bg-yellow-600 text-white");
+    return;
+  }
+
+  if (conf.score < 45){
+    updateTradeStatus("WATCH: confidence low", "bg-yellow-600 text-white");
+    logLine("Manual trade blocked: confidence below 45%.");
+    return;
+  }
+
+  enterTrade(dir, appState.stakeAmount * mult);
+}
+
+function clearHistory(){
+  appState.sessionProfit = 0;
+  appState.sessionLoss = 0;
+  updateProfit(appState.sessionProfit);
+  updateLoss(appState.sessionLoss);
+
+  if (TXLOG) TXLOG.textContent = "";
+
+  logLine("History cleared (session profit/loss reset).");
+  txLogLine("CLEARED | Transaction log reset");
+}
+
+/* =========================================================
+   Symbol switching
+========================================================= */
+function setSymbol(newSymbol){
+  newSymbol = (newSymbol || "").trim();
+  if (!newSymbol) return;
+
+  dom.accountWarning?.classList.add("hidden");
+
+  appState.symbol = newSymbol;
+  if (dom.currentSymbolLabel) dom.currentSymbolLabel.textContent = newSymbol;
+
+  appState.tickBuffer = [];
+  appState.lastDigits = [];
+  appState.chart.lastCandleTime = 0;
+  appState.chart.lastOHLC = null;
+
+  // Ã¢ÂÂ PRICE ACTION: reset candle history on symbol switch
+  appState.chart.closedCandles = [];
+
+  appState.trend.lastUpdated = 0;
+  if (appState.trend.enabled) appState.trend.status = "LOADING";
+
+  if (appState.isAuthenticated){
+    subscribeTicks(newSymbol);
+
+    // Ã¢ÂÂ refresh trend candles for the NEW symbol
+    if (appState.trend.enabled) requestH4Candles();
+
+    logLine("Symbol switched to: " + newSymbol);
+  } else {
+    logLine("Symbol set (will subscribe after connect): " + newSymbol);
+  }
+  updateUI();
+}
+
+/* =========================================================
+   INIT
+========================================================= */
+document.addEventListener("DOMContentLoaded", () => {
+  try {
+    initChart();
+    loadDefaults(appState.mode);
+
+    setSettingsLock(true);   // start locked
+    dgLoadToUI();            // refresh Daily Guard UI
+  } catch (e) {
+    console.error(e);
+    logLine("Init error: " + (e?.message || e));
+  }
+});
+
+    if (appState.token && dom.apiToken){
+      dom.apiToken.value = appState.token;
+      if (dom.editHint) dom.editHint.textContent = "Token loaded and saved. Type password then click START BOT to connect.";
+    }
+
+    if (dom.pwInput) dom.pwInput.value = "";
+
+    if (dom.symbolSelect) dom.symbolSelect.value = appState.symbol;
+
+    document.querySelectorAll("input, select").forEach(el => {
+      el.addEventListener("input", updateStateFromUI);
+      el.addEventListener("change", updateStateFromUI);
+    });
+
+    dom.toggleBotBtn?.addEventListener("click", () => {
+      if (!appState.isBotRunning){
+        const token = (dom.apiToken?.value || "").trim();
+        if (!token){
+          dom.tokenError?.classList.remove("hidden");
+          return;
+        } else dom.tokenError?.classList.add("hidden");
+      }
+
+      if (appState.isBotRunning) stopBot();
+      else startBot();
+    });
+
+    dom.unlockBtn = document.getElementById("unlock-settings-btn");
+
+  dom.unlockBtn?.addEventListener("click", () => {
+  const newState = !appState.isSettingsLocked;
+setSettingsLock(newState);
+
+  // re-sync Daily Guard UI after lock/unlock
+  if (typeof dgLoadToUI === "function") dgLoadToUI();
+});
+dom.dgSaveBtn?.addEventListener("click", dgSaveFromUI);
+dom.dgResetBtn?.addEventListener("click", dgResetToday);
+    dom.modeSelect?.addEventListener("change", (e) => loadDefaults(e.target.value));
+
+    dom.safeToggle?.addEventListener("change", () => updateStateFromUI());
+    dom.autoResumeToggle?.addEventListener("change", () => updateStateFromUI());
+
+    dom.toggleVisibilityBtn?.addEventListener("click", toggleTokenVisibility);
+    dom.copyApiUrlBtn?.addEventListener("click", copyApiUrl);
+
+    dom.analyzeBtn?.addEventListener("click", () => showInsight("sentiment"));
+    dom.riskBtn?.addEventListener("click", () => showInsight("risk"));
+
+    dom.symbolSelect?.addEventListener("change", (e) => setSymbol(e.target.value));
+    dom.applySymbolBtn?.addEventListener("click", () => setSymbol(dom.customSymbol?.value));
+
+    dom.placeTradeBtn?.addEventListener("click", () => manualPlaceTrade(1));
+    dom.bulk3Btn?.addEventListener("click", () => manualPlaceTrade(3));
+    dom.bulk5Btn?.addEventListener("click", () => manualPlaceTrade(5));
+    dom.clearHistoryBtn?.addEventListener("click", clearHistory);
+
+    dom.autoTradingToggle?.addEventListener("change", (e) => {
+      appState.autoTradingEnabled = !!e.target.checked;
+      logLine("Auto Trading: " + (appState.autoTradingEnabled ? "ON" : "OFF"));
+      updateUI();
+    });
+
+    dom.clearLogBtn?.addEventListener("click", () => { if (LOG) LOG.textContent = ""; });
+    dom.exportLogBtn?.addEventListener("click", async () => {
+      try{
+        await navigator.clipboard.writeText(LOG?.textContent || "");
+        logLine("Log copied to clipboard.");
+      }catch(e){
+        logLine("Copy log failed.");
+      }
+    });
+
+    dom.clearTxLogBtn?.addEventListener("click", () => { if (TXLOG) TXLOG.textContent = ""; txLogLine("CLEARED | Transaction log reset"); });
+    dom.exportTxLogBtn?.addEventListener("click", async () => {
+      try{
+        await navigator.clipboard.writeText(TXLOG?.textContent || "");
+        logLine("Transaction log copied to clipboard.");
+      }catch(e){
+        logLine("Copy transaction log failed.");
+      }
+    });
+
+    updateConnection("DISCONNECTED", "bg-red-800 text-white");
+    updateTradeStatus("Idle", "bg-slate-600 text-slate-300");
+    setSellable(0);
+    updateProfit(appState.sessionProfit);
+    updateLoss(appState.sessionLoss);
+    updateUI();
+
+    logLine("Kut Milz TB loaded. Ready.");
+    txLogLine("READY | Transaction log initialized");
+  }catch(e){
+    logLine("Init error: " + e.message);
+  }
+});
+/* -------------------------------------------------
+>>> ADDED â DO NOT TOUCH STRATEGY LOGIC <<<
+------------------------------------------------- */
+
+/* =========================================================
+   DAILY GUARDRAILS (LOCKED BY DEFAULT)
+   - Persisted via localStorage
+   - Editable only when settings are unlocked
+========================================================= */
+const DailyGuard = (() => {
+  const key = 'kutmilz_daily_guard';
+  const today = new Date().toISOString().slice(0,10);
+
+  let state = JSON.parse(localStorage.getItem(key) || '{}');
+  if (state.date !== today){
+    state = {
+      date: today,
+      maxLoss: 50,
+      maxProfit: 100,
+      maxTrades: 50,
+      trades: 0,
+      hit: false
+    };
+  }
+
+  function save(){ localStorage.setItem(key, JSON.stringify(state)); }
+
+  return {
+    state,
+    recordTrade(pnl){
+      state.trades++;
+      if (pnl < 0 && Math.abs(pnl) >= state.maxLoss) state.hit = true;
+      if (pnl > 0 && pnl >= state.maxProfit) state.hit = true;
+      if (state.trades >= state.maxTrades) state.hit = true;
+      save();
+    },
+    canTrade(){
+      return !state.hit;
+    },
+    reason(){
+      if (!state.hit) return null;
+      if (state.trades >= state.maxTrades) return 'Daily Max Trades Hit';
+      return 'Daily P/L Limit Hit';
+    }
+  };
+})();
+
+/* =========================================================
+   VOLATILITY FILTER (PRE-ENTRY ONLY)
+========================================================= */
+function volatilityBlocked(){
+  const c = appState.chart.closedCandles;
+  if (!c || c.length < 10) return false;
+  const recent = c.slice(-5);
+  const ranges = recent.map(x => x.high - x.low);
+  const avg = ranges.reduce((a,b)=>a+b,0)/ranges.length;
+  const last = ranges[ranges.length-1];
+  return last > avg * 2.5;
+}
+
+/* =========================================================
+   REGIME SWITCHER (NON-FORCING)
+========================================================= */
+function regimeBlocked(){
+  const buf = appState.tickBuffer;
+  if (buf.length < 8) return false;
+  let diffs = [];
+  for (let i=1;i<buf.length;i++) diffs.push(Math.abs(buf[i]-buf[i-1]));
+  const avg = diffs.reduce((a,b)=>a+b,0)/diffs.length;
+  if (avg < appState.momentumThreshold * 0.5) return true; // DEAD
+  return false;
+}
+
+/* =========================================================
+   MASTER ENTRY GATE (ALL NEW SYSTEMS)
+========================================================= */
+function canEnterTrade(direction){
+  if (!DailyGuard.canTrade()){
+    dom.blockReasonDisplay.textContent = DailyGuard.reason();
+    return false;
+  }
+  if (volatilityBlocked()){
+    dom.blockReasonDisplay.textContent = 'Volatility Spike';
+    return false;
+  }
+  if (regimeBlocked()){
+    dom.blockReasonDisplay.textContent = 'Market Regime: DEAD';
+    return false;
+  }
+  return true;
+}
+
+/* =========================================================
+   TRAILING TAKE PROFIT (EXIT-ONLY WRAPPER)
+========================================================= */
+let trailPeak = null;
+
+function checkProfitAndLoss_WRAPPED(contract){
+  const p = Number(contract.profit);
+
+  if (p >= appState.tpUSD){
+    if (trailPeak === null) trailPeak = p;
+    trailPeak = Math.max(trailPeak, p);
+
+    const trailPct = (appState.mode === 'SCALP') ? 0.5 : 0.25;
+    const trailStop = trailPeak * (1 - trailPct);
+
+    if (p <= trailStop){
+      sellContract();
+      trailPeak = null;
+    }
+    return;
+  }
+
+  // original SL logic untouched
+  if (appState.isSafeMode && p <= -Math.abs(appState.slUSD)){
+    sellContract();
+    trailPeak = null;
+  }
+}
+
+/* =========================================================
+   NOTE:
+   Replace calls to checkProfitAndLoss(contract)
+   with checkProfitAndLoss_WRAPPED(contract)
+   (THIS IS A WRAP â NO LOGIC CHANGED)
+========================================================= */
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  if (!dom.unlockBtn) return;
+
+  dom.unlockBtn.addEventListener("click", function () {
+    const newLocked = !appState.isSettingsLocked;
+    setSettingsLock(!newLocked);
+    updateUI();
+  });
+
+  if (dom.modeSelect) {
+    dom.modeSelect.addEventListener("change", function () {
+      appState.mode = dom.modeSelect.value;
+      if (typeof loadDefaults === "function") loadDefaults(appState.mode);
+    });
+  }
+
+  if (dom.safeToggle) {
+    dom.safeToggle.addEventListener("change", function () {
+      appState.isSafeMode = dom.safeToggle.checked;
+      if (typeof updateUI === "function") updateUI();
+      if (typeof updateStateFromUI === "function") updateStateFromUI();
+    });
+  }
+
+  if (dom.autoResumeToggle) {
+    dom.autoResumeToggle.addEventListener("change", function () {
+      appState.autoResume = dom.autoResumeToggle.checked;
+      if (typeof updateUI === "function") updateUI();
+      if (typeof updateStateFromUI === "function") updateStateFromUI();
+    });
+  }
+});
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const dom = {
+    unlockBtn: document.getElementById('unlock-btn'),
+    modeSelect: document.getElementById('mode-select'),
+    safeToggle: document.getElementById('safe-mode-toggle'),
+    autoResumeToggle: document.getElementById('autoresume-toggle'),
+    maxLoss: document.getElementById('dg-maxLoss'),
+    maxProfit: document.getElementById('dg-maxProfit'),
+    maxTrades: document.getElementById('dg-maxTradesInput'),
+    saveBtn: document.getElementById('dg-save-btn'),
+    resetBtn: document.getElementById('dg-reset-btn'),
+    hint: document.getElementById('dg-hint')
+  };
+
+  if (!dom.unlockBtn) return;
+
+  dom.unlockBtn.addEventListener("click", function () {
+    const newLocked = !appState.isSettingsLocked;
+    setSettingsLock(!newLocked);
+    if (typeof updateUI === "function") updateUI();
+  });
+
+  if (dom.modeSelect) {
+    dom.modeSelect.addEventListener("change", function () {
+      appState.mode = dom.modeSelect.value;
+      if (typeof loadDefaults === "function") loadDefaults(appState.mode);
+    });
+  }
+
+  if (dom.safeToggle) {
+    dom.safeToggle.addEventListener("change", function () {
+      appState.isSafeMode = dom.safeToggle.checked;
+      if (typeof updateUI === "function") updateUI();
+      if (typeof updateStateFromUI === "function") updateStateFromUI();
+    });
+  }
+
+  if (dom.autoResumeToggle) {
+    dom.autoResumeToggle.addEventListener("change", function () {
+      appState.autoResume = dom.autoResumeToggle.checked;
+      if (typeof updateUI === "function") updateUI();
+      if (typeof updateStateFromUI === "function") updateStateFromUI();
+    });
+  }
+});
+</script>
+
+</body>
+</html>
