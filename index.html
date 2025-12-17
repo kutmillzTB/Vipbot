@@ -235,7 +235,7 @@
           </div>
 
           <div id="account-warning" class="hidden mt-3 p-3 rounded-lg border border-red-500/40 bg-red-500/10 text-sm text-red-200">
-            Ã¢ÂÂ Ã¯Â¸Â Symbol not available on this account. Use a Deriv <b>Derived/Synthetic (STD)</b> account for Volatility indices and Vol 1s.
+            â ï¸ Symbol not available on this account. Use a Deriv <b>Derived/Synthetic (STD)</b> account for Volatility indices and Vol 1s.
           </div>
         </div>
       </div>
@@ -254,7 +254,7 @@
             <span id="current-profit-display" class="text-lg font-bold text-slate-300">0.00</span>
           </div>
 
-          <!-- Ã¢ÂÂ ADDED: Session Loss -->
+          <!-- â ADDED: Session Loss -->
           <div class="flex justify-between items-center">
             <span class="text-sm">Session Loss (USD):</span>
             <span id="current-loss-display" class="text-lg font-bold text-red-300">0.00</span>
@@ -267,7 +267,7 @@
         </div>
       </div>
 
-      <!-- Ã¢ÂÂ ADDED: Transaction Log -->
+      <!-- â ADDED: Transaction Log -->
       <div class="card">
         <h2 class="text-xl font-semibold mb-4 text-emerald-300">Transaction Log</h2>
         <div class="p-3 bg-slate-900/40 border border-slate-700 rounded-lg text-xs whitespace-pre-wrap min-h-[120px] max-h-[220px] overflow-auto"
@@ -300,7 +300,7 @@
       <!-- Clustering Detected Alert -->
       <div id="cluster-alert" class="card hidden border-yellow-500/40">
         <div class="flex items-start gap-3">
-          <div class="text-yellow-400 text-xl">Ã¢ÂÂ Ã¯Â¸Â</div>
+          <div class="text-yellow-400 text-xl">â ï¸</div>
           <div>
             <div class="text-lg font-semibold text-yellow-300">Clustering Detected</div>
             <div id="cluster-text" class="text-sm text-slate-200 mt-1">
@@ -322,7 +322,7 @@
         </div>
         <div class="flex justify-between mt-2 text-xs text-slate-300">
           <div id="confidence-text">0%</div>
-          <div id="confidence-notes" class="text-slate-400">Waiting ticksÃ¢ÂÂ¦</div>
+          <div id="confidence-notes" class="text-slate-400">Waiting ticksâ¦</div>
         </div>
 
         <div class="mt-3 text-xs text-slate-400">
@@ -367,7 +367,7 @@
               </button>
             </div>
             <p class="text-xs text-slate-400 mt-2">
-              If symbol fails to stream, you may be on an account that doesnÃ¢ÂÂt allow it. Use a Derived/STD account for Volatility indices.
+              If symbol fails to stream, you may be on an account that doesnât allow it. Use a Derived/STD account for Volatility indices.
             </p>
           </div>
 
@@ -388,7 +388,7 @@
 
           <div class="md:col-span-2 flex items-center justify-between p-3 bg-slate-700/50 rounded-lg mt-1">
             <div class="flex items-center gap-3">
-              <div class="text-purple-300 text-xl">Ã¢ÂÂ¡</div>
+              <div class="text-purple-300 text-xl">â¡</div>
               <div>
                 <div class="font-semibold text-slate-200">Auto Trading</div>
                 <div class="text-xs text-slate-400">Enable to start automated trading based on current settings</div>
@@ -463,58 +463,11 @@
       <div class="card">
         <div class="flex justify-between items-start mb-4 border-b border-slate-700 pb-3">
           <h2 class="text-xl font-semibold text-pink-400">Protected Defaults</h2>
-          <button id="unlock-settings-btn" type="button"
-           class="text-sm text-pink-400 hover:text-pink-300 font-medium py-1 px-3 rounded-full border border-pink-500 transition duration-150">
+          <button id="unlock-settings-btn"
+            class="text-sm text-pink-400 hover:text-pink-300 font-medium py-1 px-3 rounded-full border border-pink-500 transition duration-150">
             Unlock
           </button>
-            
-          </div>
-        <!-- â DAILY GUARD DASHBOARD (Locked unless Unlocked) -->
-<div class="p-3 bg-slate-700/50 rounded-lg border border-slate-600">
-  <div class="flex items-center justify-between mb-2">
-    <div class="font-semibold text-slate-200">Daily Guard Dashboard</div>
-    <span id="dg-status-pill" class="pill bg-slate-600 text-slate-200">LOADING</span>
-  </div>
-
-  <div class="text-xs text-slate-400 mb-3">
-    Date: <span id="dg-date" class="text-slate-200 font-semibold">----</span> â¢
-    Trades: <span id="dg-trades" class="text-slate-200 font-semibold">0</span> /
-    <span id="dg-maxTrades" class="text-slate-200 font-semibold">0</span>
-  </div>
-
-  <div class="grid grid-cols-3 gap-2">
-    <div>
-      <label class="block text-[11px] text-slate-400 mb-1">Max Loss ($)</label>
-      <input id="dg-maxLoss" type="number" step="0.01"
-        class="w-full p-2 rounded bg-slate-800 border border-slate-600 text-slate-50 text-sm">
-    </div>
-    <div>
-      <label class="block text-[11px] text-slate-400 mb-1">Max Profit ($)</label>
-      <input id="dg-maxProfit" type="number" step="0.01"
-        class="w-full p-2 rounded bg-slate-800 border border-slate-600 text-slate-50 text-sm">
-    </div>
-    <div>
-      <label class="block text-[11px] text-slate-400 mb-1">Max Trades</label>
-      <input id="dg-maxTradesInput" type="number" step="1"
-        class="w-full p-2 rounded bg-slate-800 border border-slate-600 text-slate-50 text-sm">
-    </div>
-  </div>
-
-  <div class="mt-3 flex gap-2">
-    <button id="dg-save-btn"
-      class="flex-1 py-2 rounded-lg font-bold bg-emerald-700 hover:bg-emerald-800 text-white text-sm">
-      Save Today Limits
-    </button>
-    <button id="dg-reset-btn"
-      class="py-2 px-3 rounded-lg font-bold bg-slate-600 hover:bg-slate-500 text-white text-sm">
-      Reset Today
-    </button>
-  </div>
-
-  <div id="dg-hint" class="mt-2 text-[11px] text-slate-400">
-    Locked. Click <b>Unlock</b> to edit todayâs limits.
-  </div>
-</div>
+        </div>
 
         <div class="space-y-4">
 
@@ -603,14 +556,14 @@
 
             <button id="toggle-visibility-btn" class="p-3 text-slate-400 hover:text-sky-300 transition duration-150"
               type="button" title="Show Token">
-              Ã°ÂÂÂÃ¯Â¸Â
+              ðï¸
             </button>
           </div>
         </div>
 
         <div class="relative mb-3">
           <label for="start-password" class="block text-sm font-medium mb-1 text-slate-300">Start Password</label>
-          <input type="password" id="start-password" placeholder="Type password to start botÃ¢ÂÂ¦"
+          <input type="password" id="start-password" placeholder="Type password to start botâ¦"
             class="w-full p-3 rounded-lg bg-slate-700 border border-slate-600 text-slate-50 focus:ring-sky-500 focus:border-sky-500"
             autocomplete="off" />
           <p id="pw-error-message" class="mt-2 text-sm text-red-300 hidden">
@@ -647,14 +600,14 @@
 
       <!-- Insights -->
       <div class="card">
-        <h2 class="text-xl font-semibold mb-4 text-emerald-400">Market Insights Ã¢ÂÂ¨</h2>
+        <h2 class="text-xl font-semibold mb-4 text-emerald-400">Market Insights â¨</h2>
 
         <div class="flex flex-col sm:flex-row gap-4 mb-4">
           <button id="analyze-market-btn" class="flex-1 py-2 rounded-lg font-bold transition duration-200 bg-emerald-700 hover:bg-emerald-800 text-white shadow-lg">
-            Analyze Market Sentiment Ã¢ÂÂ¨
+            Analyze Market Sentiment â¨
           </button>
           <button id="assess-risk-btn" class="flex-1 py-2 rounded-lg font-bold transition duration-200 bg-pink-700 hover:bg-pink-800 text-white shadow-lg">
-            Assess Strategy Risk Ã¢ÂÂ¨
+            Assess Strategy Risk â¨
           </button>
         </div>
 
@@ -667,7 +620,7 @@
         </div>
 
         <div class="mt-3 text-xs text-slate-400">
-          Note: This is NOT financial advice. Signals can be wrong Ã¢ÂÂ always risk-manage.
+          Note: This is NOT financial advice. Signals can be wrong â always risk-manage.
         </div>
       </div>
 
@@ -692,7 +645,7 @@ function logLine(msg){
   }
 }
 
-// Ã¢ÂÂ Transaction log lines: CLOSED | SYMBOL | CALL/PUT | +/-value
+// â Transaction log lines: CLOSED | SYMBOL | CALL/PUT | +/-value
 function txLogLine(msg){
   const t = new Date().toLocaleTimeString();
   const line = `[${t}] ${msg}`;
@@ -732,7 +685,7 @@ const appState = {
 
   currentBalance:0,
 
-  // Ã¢ÂÂ Session tracking
+  // â Session tracking
   sessionProfit:0,     // net P/L
   sessionLoss:0,       // absolute loss total
 
@@ -741,7 +694,7 @@ const appState = {
   is_sellable:0,
   isSelling:false,
 
-  // Ã¢ÂÂ Track last trade meta so TX log shows CALL/PUT + symbol
+  // â Track last trade meta so TX log shows CALL/PUT + symbol
   currentDirection:null,       // "CALL" / "PUT"
   currentSymbolAtEntry:null,   // e.g., "R_100"
 
@@ -790,7 +743,7 @@ const appState = {
     lastOHLC:null,
     hasTick:false,
 
-    /* Ã¢ÂÂ PRICE ACTION: closed 1s candle history (used by filter) */
+    /* â PRICE ACTION: closed 1s candle history (used by filter) */
     closedCandles: []  // {time, open, high, low, close}
   },
 
@@ -802,21 +755,6 @@ const appState = {
    DOM
 ========================================================= */
 const dom = {
-  // Daily Guard UI
-  unlockBtn: $("unlock-settings-btn"),
-dgStatusPill: $("dg-status-pill"),
-dgDate: $("dg-date"),
-dgTrades: $("dg-trades"),
-dgMaxTrades: $("dg-maxTrades"),
-
-dgMaxLoss: $("dg-maxLoss"),
-dgMaxProfit: $("dg-maxProfit"),
-dgMaxTradesInput: $("dg-maxTradesInput"),
-
-dgSaveBtn: $("dg-save-btn"),
-dgResetBtn: $("dg-reset-btn"),
-dgHint: $("dg-hint"),
-  
   // status
   connectionStatus: $("connection-status"),
   accountTypeStatus: $("account-type-status"),
@@ -833,6 +771,7 @@ dgHint: $("dg-hint"),
 
   // controls
   toggleBotBtn: $("toggle-bot-btn"),
+  unlockBtn: $("unlock-settings-btn"),
   modeSelect: $("mode-select"),
   modePill: $("mode-pill"),
   modeStatus: $("mode-status"),
@@ -994,13 +933,7 @@ function updateUI(){
   setIfNotEditing(dom.maxTradesInput, String(appState.maxTradesPerSignal));
   setIfNotEditing(dom.cooldownInput, String(appState.cooldownDuration));
 
-  if (
-  dom.modeSelect &&
-  appState.isSettingsLocked &&
-  document.activeElement !== dom.modeSelect
-) {
-  dom.modeSelect.value = appState.mode;
-}
+  if (dom.modeSelect && document.activeElement !== dom.modeSelect) dom.modeSelect.value = appState.mode;
   if (dom.safeToggle && document.activeElement !== dom.safeToggle) dom.safeToggle.checked = appState.isSafeMode;
 
   if (dom.autoResumeIndicator){
@@ -1034,103 +967,30 @@ function updateUI(){
   }
 
   updateLoginBadge();
-updateConfidenceUI();
-updateLoss(appState.sessionLoss);
-}   // â added
+  updateConfidenceUI();
+  updateLoss(appState.sessionLoss);
+}
 
-/* Lock/Unlock settings */
-function setSettingsLock(isLocked) {
+/* =========================================================
+   Lock/Unlock settings
+========================================================= */
+function setSettingsLock(isLocked){
   appState.isSettingsLocked = isLocked;
 
   const list = [
-  dom.stakeInput,
-  dom.durationInput,
-  dom.durationUnitInput,
-  dom.tpInput,
-  dom.slInput,
-  dom.maxTradesInput,
-  dom.cooldownInput,
-
-  dom.modeSelect,          // â IMPORTANT (you removed this)
-  dom.safeToggle,
-  dom.autoResumeToggle,
-
-  // Daily Guard
-  dom.dgMaxLoss,
-  dom.dgMaxProfit,
-  dom.dgMaxTradesInput,
-].filter(Boolean);
+    dom.stakeInput, dom.durationInput, dom.durationUnitInput,
+    dom.tpInput, dom.slInput, dom.maxTradesInput, dom.cooldownInput,
+    dom.modeSelect, dom.safeToggle, dom.autoResumeToggle
+  ].filter(Boolean);
 
   list.forEach(el => el.disabled = isLocked);
 
-  if (dom.unlockBtn) {
+  if (dom.unlockBtn){
     dom.unlockBtn.textContent = isLocked ? "Unlock" : "Lock";
+    dom.unlockBtn.className = isLocked
+      ? "text-sm text-pink-400 hover:text-pink-300 font-medium py-1 px-3 rounded-full border border-pink-500 transition duration-150"
+      : "text-sm text-white bg-pink-600 hover:bg-pink-700 font-medium py-1 px-3 rounded-full border border-pink-700 transition duration-150";
   }
- if (typeof dgLoadUI === "function") dgLoadUI();
-  
-  // ð re-sync Daily Guard UI AFTER lock/unlock
-  function dgLoadToUI(){
-  if (!dom.dgStatusPill) return;
-
-  const s = DailyGuard.state;
-
-  // text stats
-  if (dom.dgDate) dom.dgDate.textContent = s.date || "â";
-  if (dom.dgTrades) dom.dgTrades.textContent = String(s.trades || 0);
-  if (dom.dgMaxTrades) dom.dgMaxTrades.textContent = String(s.maxTrades || 0);
-
-  // inputs
-  if (dom.dgMaxLoss) dom.dgMaxLoss.value = Number(s.maxLoss ?? 50).toFixed(2);
-  if (dom.dgMaxProfit) dom.dgMaxProfit.value = Number(s.maxProfit ?? 100).toFixed(2);
-  if (dom.dgMaxTradesInput) dom.dgMaxTradesInput.value = String(s.maxTrades ?? 50);
-
-  // status pill
-  if (s.hit){
-    setPill(dom.dgStatusPill, "LOCKED", "bg-red-700 text-white");
-  } else {
-    setPill(dom.dgStatusPill, "ACTIVE", "bg-emerald-700 text-white");
-  }
-
-  // lock/unlock behavior
-  const locked = appState.isSettingsLocked;
-  [dom.dgMaxLoss, dom.dgMaxProfit, dom.dgMaxTradesInput, dom.dgSaveBtn, dom.dgResetBtn]
-    .filter(Boolean)
-    .forEach(el => el.disabled = locked);
-
-  if (dom.dgHint){
-    dom.dgHint.textContent = locked
-      ? "Locked. Click Unlock to edit todayâs limits."
-      : "Unlocked. Edit limits, then Save.";
-  }
-}
-
-function dgSaveFromUI(){
-  const s = DailyGuard.state;
-
-  s.maxLoss = Math.max(0, parseFloat(dom.dgMaxLoss?.value || "0") || 0);
-  s.maxProfit = Math.max(0, parseFloat(dom.dgMaxProfit?.value || "0") || 0);
-  s.maxTrades = Math.max(1, parseInt(dom.dgMaxTradesInput?.value || "1", 10) || 1);
-
-  s.hit = false; // allow trading again if you changed limits
-  localStorage.setItem("kutmilz_daily_guard", JSON.stringify(s));
-
-  dgLoadToUI();
-  logLine("Daily Guard saved for today.");
-}
-
-function dgResetToday(){
-  const today = new Date().toISOString().slice(0,10);
-  DailyGuard.state.date = today;
-  DailyGuard.state.maxLoss = 50;
-  DailyGuard.state.maxProfit = 100;
-  DailyGuard.state.maxTrades = 50;
-  DailyGuard.state.trades = 0;
-  DailyGuard.state.hit = false;
-  localStorage.setItem("kutmilz_daily_guard", JSON.stringify(DailyGuard.state));
-
-  dgLoadToUI();
-  logLine("Daily Guard reset for today.");
-}
 }
 
 /* =========================================================
@@ -1182,7 +1042,7 @@ function loadDefaults(mode){
   appState.trend.enabled = appState.useTrendFilter;
   appState.trend.status = appState.trend.enabled ? "LOADING" : "OFF";
 
-  // Ã¢ÂÂ if we are already connected, refresh H4 trend immediately when switching to MOMENTUM/H4
+  // â if we are already connected, refresh H4 trend immediately when switching to MOMENTUM/H4
   appState.trend.lastUpdated = 0;
   if (appState.trend.enabled && appState.isAuthenticated) requestH4Candles();
 
@@ -1234,7 +1094,7 @@ function initChart(){
       series = chart.addSeries(LightweightCharts.LineSeries, { priceLineVisible:false, lastValueVisible:true });
     }
     seriesKind = "line";
-    logLine("Chart fallback Ã¢ÂÂ line series (candles unavailable).");
+    logLine("Chart fallback â line series (candles unavailable).");
   }
 
   if (dom.chartStatus) setPill(dom.chartStatus, "READY", "bg-emerald-700 text-white");
@@ -1273,7 +1133,7 @@ function updateSeriesFromTick(price){
     c.close = price;
     try{ series.update(c); }catch(_){}
   } else {
-    /* Ã¢ÂÂ PRICE ACTION: finalize previous candle into history */
+    /* â PRICE ACTION: finalize previous candle into history */
     if (appState.chart.lastOHLC){
       appState.chart.closedCandles.push({ ...appState.chart.lastOHLC });
       if (appState.chart.closedCandles.length > 240) appState.chart.closedCandles.shift(); // keep last ~4 mins
@@ -1304,7 +1164,7 @@ function trendClassify(emaFast, emaSlow){
   return "NEUTRAL";
 }
 
-/* Ã¢ÂÂ FIXED: Proper Deriv candles request uses ticks_history + style:"candles"
+/* â FIXED: Proper Deriv candles request uses ticks_history + style:"candles"
    Response comes back as msg_type:"history" with history.candles[] */
 function requestH4Candles(){
   if (!appState.ws || !appState.isAuthenticated || !appState.trend.enabled) return;
@@ -1369,7 +1229,7 @@ function passesBreakoutFilter(direction){
 }
 
 /* =========================================================
-   Ã¢ÂÂ PRICE ACTION FILTER (ALL 3 MODES)
+   â PRICE ACTION FILTER (ALL 3 MODES)
    - Uses real 1s candles from chart aggregator
    - Blocks: doji/weak body, wick traps, fake range breakouts
 ========================================================= */
@@ -1492,7 +1352,7 @@ function updateClustering(price){
 
   if (sameCount >= 3){
     dom.clusterAlert?.classList.remove("hidden");
-    if (dom.clusterText) dom.clusterText.textContent = `Clustering Detected: ${sameCount} repeats in last 5 ticks Ã¢ÂÂ possible reversal/indecision.`;
+    if (dom.clusterText) dom.clusterText.textContent = `Clustering Detected: ${sameCount} repeats in last 5 ticks â possible reversal/indecision.`;
   } else {
     dom.clusterAlert?.classList.add("hidden");
   }
@@ -1503,7 +1363,7 @@ function updateClustering(price){
 ========================================================= */
 function computeConfidence(){
   const buf = appState.tickBuffer;
-  if (buf.length < appState.tickBufferSize) return { score: 0, signal: "WAIT", notes: "Waiting ticksÃ¢ÂÂ¦" };
+  if (buf.length < appState.tickBufferSize) return { score: 0, signal: "WAIT", notes: "Waiting ticksâ¦" };
 
   const first = buf[0];
   const last = buf[buf.length-1];
@@ -1530,7 +1390,7 @@ function computeConfidence(){
   if (dir && score >= 70) signal = (dir === "CALL") ? "BUY" : "SELL";
   else if (dir && score >= 45) signal = "WATCH";
 
-  const notes = `ÃÂ=${delta.toFixed(4)} | Mode=${appState.mode} | Trend=${appState.trend.enabled ? appState.trend.status : "OFF"} | Breakout=${breakoutOk ? "OK" : "WAIT"}`;
+  const notes = `Î=${delta.toFixed(4)} | Mode=${appState.mode} | Trend=${appState.trend.enabled ? appState.trend.status : "OFF"} | Breakout=${breakoutOk ? "OK" : "WAIT"}`;
   return { score, signal, notes };
 }
 
@@ -1666,7 +1526,7 @@ function startBot(){
   appState.chart.hasTick = false;
   appState.lastDigits = [];
 
-  // Ã¢ÂÂ PRICE ACTION: reset candle history on start
+  // â PRICE ACTION: reset candle history on start
   appState.chart.closedCandles = [];
 
   appState.currentDirection = null;
@@ -1739,7 +1599,7 @@ function handleResponse(res){
       appState.trend.lastUpdated = 0;
       if (appState.trend.enabled){
         appState.trend.status = "LOADING";
-        requestH4Candles(); // Ã¢ÂÂ now correct request
+        requestH4Candles(); // â now correct request
       } else {
         appState.trend.status = "OFF";
       }
@@ -1782,7 +1642,7 @@ function handleResponse(res){
       break;
     }
 
-    /* Ã¢ÂÂ FIXED: H4 candles now arrive as msg_type:"history" */
+    /* â FIXED: H4 candles now arrive as msg_type:"history" */
     case "history":{
       if (!appState.trend.enabled) return;
 
@@ -1853,7 +1713,6 @@ function handleResponse(res){
       if (appState.currentContractId && c.contract_id === appState.currentContractId){
         if (c.is_sold === 1){
           const profit = Number(c.sell_price) - Number(c.buy_price);
-          DailyGuard.recordTrade(profit);
 
           appState.sessionProfit += profit;
           if (profit < 0) appState.sessionLoss += Math.abs(profit);
@@ -1889,7 +1748,7 @@ function handleResponse(res){
             }, appState.cooldownDuration * 1000);
           }
         } else {
-          checkProfitAndLoss_WRAPPED(c);
+          checkProfitAndLoss(c);
         }
       }
       updateUI();
@@ -1942,13 +1801,11 @@ function checkAndEnterTrade(){
     }
   }
 
-  /* Ã¢ÂÂ PRICE ACTION GATE (AUTO) */
+  /* â PRICE ACTION GATE (AUTO) */
   if (!passesPriceActionFilter(direction)){
     // block reason already set inside the filter
     return;
   }
-  /* â NEW MASTER GATE (daily / volatility / regime) */
-if (!canEnterTrade(direction)) return;
 
   if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "None";
   enterTrade(direction, appState.stakeAmount);
@@ -2037,31 +1894,31 @@ function fallbackInsight(type){
     const conf = computeConfidence();
     return [
       `Safe Entry Suggestion (Fallback):`,
-      `Ã¢ÂÂ¢ Symbol: ${appState.symbol}`,
-      `Ã¢ÂÂ¢ Mode: ${appState.mode}`,
-      `Ã¢ÂÂ¢ Trend Filter: ${trend}`,
-      `Ã¢ÂÂ¢ Momentum: ${dir} | ÃÂ=${delta.toFixed(4)}`,
-      `Ã¢ÂÂ¢ Breakout Strict: ${appState.breakoutStrict ? "ON" : "OFF"}`,
-      `Ã¢ÂÂ¢ Confidence: ${conf.score}% | Signal: ${conf.signal}`,
+      `â¢ Symbol: ${appState.symbol}`,
+      `â¢ Mode: ${appState.mode}`,
+      `â¢ Trend Filter: ${trend}`,
+      `â¢ Momentum: ${dir} | Î=${delta.toFixed(4)}`,
+      `â¢ Breakout Strict: ${appState.breakoutStrict ? "ON" : "OFF"}`,
+      `â¢ Confidence: ${conf.score}% | Signal: ${conf.signal}`,
       ``,
       `Suggested Action:`,
-      conf.signal === "BUY" ? "Ã¢ÂÂ¢ BUY setup is strong (conditions passing)" :
-      conf.signal === "SELL" ? "Ã¢ÂÂ¢ SELL setup is strong (conditions passing)" :
-      conf.signal === "WATCH" ? "Ã¢ÂÂ¢ WATCH (signal forming, wait cleaner move)" :
-      "Ã¢ÂÂ¢ WAIT (not enough confirmation)",
+      conf.signal === "BUY" ? "â¢ BUY setup is strong (conditions passing)" :
+      conf.signal === "SELL" ? "â¢ SELL setup is strong (conditions passing)" :
+      conf.signal === "WATCH" ? "â¢ WATCH (signal forming, wait cleaner move)" :
+      "â¢ WAIT (not enough confirmation)",
       ``,
-      `Risk Level: MEDIUM (synthetics move fast Ã¢ÂÂ keep stake small).`
+      `Risk Level: MEDIUM (synthetics move fast â keep stake small).`
     ].join("\n");
   }
 
   return [
     `Risk Check (Fallback):`,
-    `Ã¢ÂÂ¢ Stake: $${appState.stakeAmount.toFixed(2)}`,
-    `Ã¢ÂÂ¢ TP: $${appState.tpUSD.toFixed(2)} | SL: $${appState.slUSD.toFixed(2)} (SL sells only if Safe Mode ON)`,
-    `Ã¢ÂÂ¢ Duration: ${appState.duration} ${appState.durationUnit}`,
-    `Ã¢ÂÂ¢ Cooldown: ${appState.cooldownDuration}s`,
-    `Ã¢ÂÂ¢ Auto Trading: ${appState.autoTradingEnabled ? "ON" : "OFF"}`,
-    `Ã¢ÂÂ¢ Session P/L: $${appState.sessionProfit.toFixed(2)} | Loss: $${appState.sessionLoss.toFixed(2)}`
+    `â¢ Stake: $${appState.stakeAmount.toFixed(2)}`,
+    `â¢ TP: $${appState.tpUSD.toFixed(2)} | SL: $${appState.slUSD.toFixed(2)} (SL sells only if Safe Mode ON)`,
+    `â¢ Duration: ${appState.duration} ${appState.durationUnit}`,
+    `â¢ Cooldown: ${appState.cooldownDuration}s`,
+    `â¢ Auto Trading: ${appState.autoTradingEnabled ? "ON" : "OFF"}`,
+    `â¢ Session P/L: $${appState.sessionProfit.toFixed(2)} | Loss: $${appState.sessionLoss.toFixed(2)}`
   ].join("\n");
 }
 
@@ -2119,7 +1976,7 @@ function manualPlaceTrade(mult=1){
     return;
   }
 
-  /* Ã¢ÂÂ PRICE ACTION GATE (MANUAL) */
+  /* â PRICE ACTION GATE (MANUAL) */
   if (!passesPriceActionFilter(dir)){
     updateTradeStatus("WAIT: price action", "bg-yellow-600 text-white");
     return;
@@ -2163,7 +2020,7 @@ function setSymbol(newSymbol){
   appState.chart.lastCandleTime = 0;
   appState.chart.lastOHLC = null;
 
-  // Ã¢ÂÂ PRICE ACTION: reset candle history on symbol switch
+  // â PRICE ACTION: reset candle history on symbol switch
   appState.chart.closedCandles = [];
 
   appState.trend.lastUpdated = 0;
@@ -2172,7 +2029,7 @@ function setSymbol(newSymbol){
   if (appState.isAuthenticated){
     subscribeTicks(newSymbol);
 
-    // Ã¢ÂÂ refresh trend candles for the NEW symbol
+    // â refresh trend candles for the NEW symbol
     if (appState.trend.enabled) requestH4Candles();
 
     logLine("Symbol switched to: " + newSymbol);
@@ -2186,17 +2043,11 @@ function setSymbol(newSymbol){
    INIT
 ========================================================= */
 document.addEventListener("DOMContentLoaded", () => {
-  try {
+  try{
     initChart();
-    loadDefaults(appState.mode);
 
-    setSettingsLock(true);   // start locked
-    dgLoadToUI();            // refresh Daily Guard UI
-  } catch (e) {
-    console.error(e);
-    logLine("Init error: " + (e?.message || e));
-  }
-});
+    loadDefaults(appState.mode);
+    setSettingsLock(true);
 
     if (appState.token && dom.apiToken){
       dom.apiToken.value = appState.token;
@@ -2225,17 +2076,7 @@ document.addEventListener("DOMContentLoaded", () => {
       else startBot();
     });
 
-    dom.unlockBtn = document.getElementById("unlock-settings-btn");
-
-  dom.unlockBtn?.addEventListener("click", () => {
-  const newState = !appState.isSettingsLocked;
-setSettingsLock(newState);
-
-  // re-sync Daily Guard UI after lock/unlock
-  if (typeof dgLoadToUI === "function") dgLoadToUI();
-});
-dom.dgSaveBtn?.addEventListener("click", dgSaveFromUI);
-dom.dgResetBtn?.addEventListener("click", dgResetToday);
+    dom.unlockBtn?.addEventListener("click", () => setSettingsLock(!appState.isSettingsLocked));
     dom.modeSelect?.addEventListener("change", (e) => loadDefaults(e.target.value));
 
     dom.safeToggle?.addEventListener("change", () => updateStateFromUI());
@@ -2294,273 +2135,6 @@ dom.dgResetBtn?.addEventListener("click", dgResetToday);
     logLine("Init error: " + e.message);
   }
 });
-/* -------------------------------------------------
->>> ADDED â DO NOT TOUCH STRATEGY LOGIC <<<
-------------------------------------------------- */
-
-/* =========================================================
-   DAILY GUARDRAILS (LOCKED BY DEFAULT)
-   - Persisted via localStorage
-   - Editable only when settings are unlocked
-========================================================= */
-const DailyGuard = (() => {
-  const key = 'kutmilz_daily_guard';
-  const today = new Date().toISOString().slice(0,10);
-
-  let state = JSON.parse(localStorage.getItem(key) || '{}');
-  if (state.date !== today){
-    state = {
-      date: today,
-      maxLoss: 50,
-      maxProfit: 100,
-      maxTrades: 50,
-      trades: 0,
-      hit: false
-    };
-  }
-
-  function save(){ localStorage.setItem(key, JSON.stringify(state)); }
-
-  return {
-    state,
-    recordTrade(pnl){
-      state.trades++;
-      if (pnl < 0 && Math.abs(pnl) >= state.maxLoss) state.hit = true;
-      if (pnl > 0 && pnl >= state.maxProfit) state.hit = true;
-      if (state.trades >= state.maxTrades) state.hit = true;
-      save();
-    },
-    canTrade(){
-      return !state.hit;
-    },
-    reason(){
-      if (!state.hit) return null;
-      if (state.trades >= state.maxTrades) return 'Daily Max Trades Hit';
-      return 'Daily P/L Limit Hit';
-    }
-  };
-})();
-
-/* =========================================================
-   VOLATILITY FILTER (PRE-ENTRY ONLY)
-========================================================= */
-function volatilityBlocked(){
-  const c = appState.chart.closedCandles;
-  if (!c || c.length < 10) return false;
-  const recent = c.slice(-5);
-  const ranges = recent.map(x => x.high - x.low);
-  const avg = ranges.reduce((a,b)=>a+b,0)/ranges.length;
-  const last = ranges[ranges.length-1];
-  return last > avg * 2.5;
-}
-
-/* =========================================================
-   REGIME SWITCHER (NON-FORCING)
-========================================================= */
-function regimeBlocked(){
-  const buf = appState.tickBuffer;
-  if (buf.length < 8) return false;
-  let diffs = [];
-  for (let i=1;i<buf.length;i++) diffs.push(Math.abs(buf[i]-buf[i-1]));
-  const avg = diffs.reduce((a,b)=>a+b,0)/diffs.length;
-  if (avg < appState.momentumThreshold * 0.5) return true; // DEAD
-  return false;
-}
-
-/* =========================================================
-   MASTER ENTRY GATE (ALL NEW SYSTEMS)
-========================================================= */
-function canEnterTrade(direction){
-  if (!DailyGuard.canTrade()){
-    dom.blockReasonDisplay.textContent = DailyGuard.reason();
-    return false;
-  }
-  if (volatilityBlocked()){
-    dom.blockReasonDisplay.textContent = 'Volatility Spike';
-    return false;
-  }
-  if (regimeBlocked()){
-    dom.blockReasonDisplay.textContent = 'Market Regime: DEAD';
-    return false;
-  }
-  return true;
-}
-
-/* =========================================================
-   TRAILING TAKE PROFIT (EXIT-ONLY WRAPPER)
-========================================================= */
-let trailPeak = null;
-
-function checkProfitAndLoss_WRAPPED(contract){
-  const p = Number(contract.profit);
-
-  if (p >= appState.tpUSD){
-    if (trailPeak === null) trailPeak = p;
-    trailPeak = Math.max(trailPeak, p);
-
-    const trailPct = (appState.mode === 'SCALP') ? 0.5 : 0.25;
-    const trailStop = trailPeak * (1 - trailPct);
-
-    if (p <= trailStop){
-      sellContract();
-      trailPeak = null;
-    }
-    return;
-  }
-
-  // original SL logic untouched
-  if (appState.isSafeMode && p <= -Math.abs(appState.slUSD)){
-    sellContract();
-    trailPeak = null;
-  }
-}
-
-/* =========================================================
-   NOTE:
-   Replace calls to checkProfitAndLoss(contract)
-   with checkProfitAndLoss_WRAPPED(contract)
-   (THIS IS A WRAP â NO LOGIC CHANGED)
-========================================================= */
 </script>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  if (!dom.unlockBtn) return;
-
-  dom.unlockBtn.addEventListener("click", function () {
-    const newLocked = !appState.isSettingsLocked;
-    setSettingsLock(!newLocked);
-    updateUI();
-  });
-
-  if (dom.modeSelect) {
-    dom.modeSelect.addEventListener("change", function () {
-      appState.mode = dom.modeSelect.value;
-      if (typeof loadDefaults === "function") loadDefaults(appState.mode);
-    });
-  }
-
-  if (dom.safeToggle) {
-    dom.safeToggle.addEventListener("change", function () {
-      appState.isSafeMode = dom.safeToggle.checked;
-      if (typeof updateUI === "function") updateUI();
-      if (typeof updateStateFromUI === "function") updateStateFromUI();
-    });
-  }
-
-  if (dom.autoResumeToggle) {
-    dom.autoResumeToggle.addEventListener("change", function () {
-      appState.autoResume = dom.autoResumeToggle.checked;
-      if (typeof updateUI === "function") updateUI();
-      if (typeof updateStateFromUI === "function") updateStateFromUI();
-    });
-  }
-});
-</script>
-
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const dom = {
-    unlockBtn: document.getElementById('unlock-btn'),
-    modeSelect: document.getElementById('mode-select'),
-    safeToggle: document.getElementById('safe-mode-toggle'),
-    autoResumeToggle: document.getElementById('autoresume-toggle'),
-    maxLoss: document.getElementById('dg-maxLoss'),
-    maxProfit: document.getElementById('dg-maxProfit'),
-    maxTrades: document.getElementById('dg-maxTradesInput'),
-    saveBtn: document.getElementById('dg-save-btn'),
-    resetBtn: document.getElementById('dg-reset-btn'),
-    hint: document.getElementById('dg-hint')
-  };
-
-  if (!dom.unlockBtn) return;
-
-  dom.unlockBtn.addEventListener("click", function () {
-    const newLocked = !appState.isSettingsLocked;
-    setSettingsLock(!newLocked);
-    if (typeof updateUI === "function") updateUI();
-  });
-
-  if (dom.modeSelect) {
-    dom.modeSelect.addEventListener("change", function () {
-      appState.mode = dom.modeSelect.value;
-      if (typeof loadDefaults === "function") loadDefaults(appState.mode);
-    });
-  }
-
-  if (dom.safeToggle) {
-    dom.safeToggle.addEventListener("change", function () {
-      appState.isSafeMode = dom.safeToggle.checked;
-      if (typeof updateUI === "function") updateUI();
-      if (typeof updateStateFromUI === "function") updateStateFromUI();
-    });
-  }
-
-  if (dom.autoResumeToggle) {
-    dom.autoResumeToggle.addEventListener("change", function () {
-      appState.autoResume = dom.autoResumeToggle.checked;
-      if (typeof updateUI === "function") updateUI();
-      if (typeof updateStateFromUI === "function") updateStateFromUI();
-    });
-  }
-});
-</script>
-
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  try {
-    const unlockBtn = document.getElementById("unlock-settings-btn");
-    const modeSelect = document.getElementById("mode-select");
-    const maxLoss = document.getElementById("dg-maxLoss");
-    const maxProfit = document.getElementById("dg-maxProfit");
-    const maxTrades = document.getElementById("dg-maxTradesInput");
-    const saveBtn = document.getElementById("dg-save-btn");
-    const resetBtn = document.getElementById("dg-reset-btn");
-    const hint = document.getElementById("dg-hint");
-
-    let unlocked = false;
-
-    if (unlockBtn) {
-      unlockBtn.addEventListener("click", function () {
-        unlocked = !unlocked;
-
-        [modeSelect, maxLoss, maxProfit, maxTrades, saveBtn, resetBtn].forEach(el => {
-          if (el) el.disabled = !unlocked;
-        });
-
-        unlockBtn.textContent = unlocked ? "Lock" : "Unlock";
-
-        if (hint) {
-          hint.textContent = unlocked
-            ? "Settings are now editable."
-            : "Click \"Unlock\" to edit settings.";
-        }
-
-        if (typeof setSettingsLock === "function") {
-          setSettingsLock(!unlocked);
-        }
-
-        if (typeof updateUI === "function") updateUI();
-      });
-    }
-
-    if (modeSelect) {
-      modeSelect.addEventListener("change", function () {
-        if (window.appState) {
-          appState.mode = modeSelect.value;
-          if (typeof loadDefaults === "function") {
-            loadDefaults(appState.mode);
-          }
-        }
-      });
-    }
-  } catch (err) {
-    console.error("UI logic error:", err);
-  }
-});
-</script>
-
 </body>
 </html>
