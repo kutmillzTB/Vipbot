@@ -42,13 +42,13 @@
     /* Brand title */
     .brand-title{
       font-weight: 900;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.20em;
       text-transform: uppercase;
-      background: linear-gradient(90deg, #f6d365 0%, #fda085 35%, #f6d365 70%, #ffd700 100%);
+      background: linear-gradient(90deg, #b45309, #fbbf24, #fde68a, #f59e0b, #b45309);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      text-shadow: 0 10px 30px rgba(124,58,237,0.18);
+      text-shadow: 0 10px 30px rgba(245,158,11,0.22);
     }
 
     /* =========================
@@ -203,7 +203,7 @@
     /* Subtle LOVE glow hints on key sections by heading color */
     .text-sky-400 { text-shadow: 0 0 18px rgba(45,212,191,0.10); }
     .text-pink-400, .text-red-300 { text-shadow: 0 0 18px rgba(244,114,182,0.10); }
-    .text-emerald-400, .text-emerald-300 { text-shadow: 0 0 18px rgba(16,185,129,0.10); }
+    .text-sky-400, .text-sky-400 { text-shadow: 0 0 18px rgba(16,185,129,0.10); }
 
     /* Improve small helper text readability */
     .text-slate-400, .text-slate-500{
@@ -215,14 +215,20 @@
       box-shadow: var(--glow-rose);
     }
   
-    /* ===== Sky-blue section headers & readable text on pearl background ===== */
-    .card h2 { color: rgb(56 189 248) !important; } /* sky-400 */
-    .card h3 { color: rgb(14 165 233) !important; } /* sky-500 */
-    .card span.text-sm { color: rgba(15,23,42,0.78) !important; }
-    .card .text-slate-300, .card .text-slate-200 { color: rgba(15,23,42,0.82) !important; }
-    .card .text-slate-400, .card .text-slate-500 { color: rgba(15,23,42,0.55) !important; }
-
-  </style>
+    /* SKY HEADER BAR (section titles) */
+    .card > h2{
+      background: linear-gradient(90deg, rgba(14,165,233,0.20), rgba(14,165,233,0.06));
+      border: 1px solid rgba(14,165,233,0.18);
+      padding: 10px 12px;
+      border-radius: 14px;
+      color: #0284c7 !important;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: 0.2px;
+    }
+    
+</style>
 </head>
 
 <body>
@@ -291,7 +297,8 @@
           </div>
 
           <div id="account-warning" class="hidden mt-3 p-3 rounded-lg border border-red-500/40 bg-red-500/10 text-sm text-red-200">
-            â ï¸ Symbol not available on this account. Use a Deriv <b>Derived/Synthetic (STD)</b> account for Volatility indices and Vol 1s.</div>
+            â ï¸ Symbol not available on this account. Use a Deriv <b>Derived/Synthetic (STD)</b> account for Volatility indices and Vol 1s.
+          </div>
         </div>
       </div>
 
@@ -308,6 +315,8 @@
             <span class="text-sm">Session Profit (USD):</span>
             <span id="current-profit-display" class="text-lg font-bold text-slate-300">0.00</span>
           </div>
+
+          <!-- â ADDED: Session Loss -->
           <div class="flex justify-between items-center">
             <span class="text-sm">Session Loss (USD):</span>
             <span id="current-loss-display" class="text-lg font-bold text-red-300">0.00</span>
@@ -372,8 +381,10 @@
           </div>
         </div>
       </div>
+
+      <!-- â ADDED: Transaction Log -->
       <div class="card">
-        <h2 class="text-xl font-semibold mb-4 text-emerald-300">Transaction Log</h2>
+        <h2 class="text-xl font-semibold mb-4 text-sky-400">Transaction Log</h2>
         <div class="p-3 bg-slate-900/40 border border-slate-700 rounded-lg text-xs whitespace-pre-wrap min-h-[120px] max-h-[220px] overflow-auto"
              id="tx-log"></div>
         <div class="mt-3 flex gap-2">
@@ -381,13 +392,13 @@
           <button id="export-txlog-btn" class="text-xs py-2 px-3 rounded bg-slate-600 hover:bg-slate-500 text-white">Copy Log</button>
         </div>
         <div class="mt-2 text-[11px] text-slate-400">
-          Format: <span class="text-slate-300">CLOSED | SYMBOL | CALL/PUT | +/-value</span>
+          Format: <span class="text-slate-300">CLOSED | SYMBOL | CALL/PUT | +/- value</span>
         </div>
       </div>
 
       <!-- System Log -->
       <div class="card">
-        <h2 class="text-xl font-semibold mb-4 text-amber-300">System Log</h2>
+        <h2 class="text-xl font-semibold mb-4 text-sky-400">System Log</h2>
         <div class="p-3 bg-slate-900/40 border border-slate-700 rounded-lg text-xs whitespace-pre-wrap min-h-[120px] max-h-[220px] overflow-auto"
              id="system-log"></div>
         <div class="mt-3 flex gap-2">
@@ -417,7 +428,7 @@
       <!-- Confidence Meter -->
       <div class="card">
         <div class="flex items-center justify-between mb-3">
-          <h2 class="text-xl font-semibold text-emerald-400">Confidence Meter</h2>
+          <h2 class="text-xl font-semibold text-sky-400">Confidence Meter</h2>
           <span id="signal-pill" class="pill bg-slate-700 text-slate-200">WAIT</span>
         </div>
 
@@ -704,7 +715,7 @@
 
       <!-- Insights -->
       <div class="card">
-        <h2 class="text-xl font-semibold mb-4 text-emerald-400">Market Insights â¨</h2>
+        <h2 class="text-xl font-semibold mb-4 text-sky-400">Market Insights â¨</h2>
 
         <div class="flex flex-col sm:flex-row gap-4 mb-4">
           <button id="analyze-market-btn" class="flex-1 py-2 rounded-lg font-bold transition duration-200 bg-emerald-700 hover:bg-emerald-800 text-white shadow-lg">
@@ -748,7 +759,8 @@ function logLine(msg){
     LOG.scrollTop = LOG.scrollHeight;
   }
 }
-// Transaction log lines: CLOSED | SYMBOL | CALL/PUT | +/-value
+
+// â Transaction log lines: CLOSED | SYMBOL | CALL/PUT | +/- value
 function txLogLine(msg){
   const t = new Date().toLocaleTimeString();
   const line = `[${t}] ${msg}`;
@@ -787,10 +799,11 @@ const appState = {
   symbol: "R_100",
 
   currentBalance:0,
-// Session tracking
+
+  // â Session tracking
   sessionProfit:0,     // net P/L
   sessionLoss:0,       // absolute loss total
-// Session limits (extra safety layer)
+  // â Session limits (extra safety layer)
   sessionTrades: 0,
   sessionWins: 0,
   sessionLosses: 0,
@@ -807,7 +820,8 @@ const appState = {
   currentContractId:null,
   is_sellable:0,
   isSelling:false,
-// Track last trade meta so TX log shows CALL/PUT + symbol
+
+  // â Track last trade meta so TX log shows CALL/PUT + symbol
   currentDirection:null,       // "CALL" / "PUT"
   currentSymbolAtEntry:null,   // e.g., "R_100"
 
@@ -1248,7 +1262,7 @@ function updateProfit(p){
   if (!dom.profitDisplay) return;
   dom.profitDisplay.textContent = p.toFixed(2);
   let color = "text-slate-300";
-  if (p > 0) color = "text-emerald-400";
+  if (p > 0) color = "text-sky-400";
   if (p < 0) color = "text-red-400";
   dom.profitDisplay.className = `text-lg font-bold ${color}`;
 }
@@ -1493,7 +1507,8 @@ function loadDefaults(mode){
 
   appState.trend.enabled = appState.useTrendFilter;
   appState.trend.status = appState.trend.enabled ? "LOADING" : "OFF";
-// if we are already connected, refresh H4 trend immediately when switching to MOMENTUM/H4
+
+  // â if we are already connected, refresh H4 trend immediately when switching to MOMENTUM/H4
   appState.trend.lastUpdated = 0;
   if (appState.trend.enabled && appState.isAuthenticated) requestH4Candles();
 
@@ -1976,7 +1991,8 @@ function startBot(){
   appState.chart.lastOHLC = null;
   appState.chart.hasTick = false;
   appState.lastDigits = [];
-// PRICE ACTION: reset candle history on start
+
+  // â PRICE ACTION: reset candle history on start
   appState.chart.closedCandles = [];
 
   appState.currentDirection = null;
@@ -2636,7 +2652,8 @@ function setSymbol(newSymbol){
   appState.lastDigits = [];
   appState.chart.lastCandleTime = 0;
   appState.chart.lastOHLC = null;
-// PRICE ACTION: reset candle history on symbol switch
+
+  // â PRICE ACTION: reset candle history on symbol switch
   appState.chart.closedCandles = [];
 
   appState.trend.lastUpdated = 0;
@@ -2644,7 +2661,8 @@ function setSymbol(newSymbol){
 
   if (appState.isAuthenticated){
     subscribeTicks(newSymbol);
-// refresh trend candles for the NEW symbol
+
+    // â refresh trend candles for the NEW symbol
     if (appState.trend.enabled) requestH4Candles();
 
     logLine("Symbol switched to: " + newSymbol);
@@ -2777,4 +2795,4 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 </body>
-</html
+</html>
